@@ -16,7 +16,7 @@
 #endif /* DEVMEM */
 
 #ifndef V3D_OFFSET
-#define V3D_OFFSET 0x7ec00000
+#define V3D_OFFSET 0x20c00000
 #endif /* V3D_OFFSET */
 
 #ifndef V3D_LENGTH
