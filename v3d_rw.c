@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "v3d_rw.h"
 
-#define gt(n, sr) ((((1<<((n)))-1)<<((sr))))
+#define gt(n, sr) ((((((n))>=32?0:(1<<((n))))-1)<<((sr))))
 #define en(e, n, sr) ((((p[((e))]&((gt(((n)), ((sr)))))))>>((sr))))
 #define rf(offset_in_1_byte, bit_from, bit_to) ((en(((offset_in_1_byte))/(32/8), ((bit_from))-((bit_to))+1, ((bit_to)))))
 #define rgt(bit_from, bit_to) ((gt(((bit_from))-((bit_to))+1, ((bit_to)))))
