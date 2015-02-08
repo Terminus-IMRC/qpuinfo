@@ -17,7 +17,7 @@ int main()
 
 	printf("V3D Technology Version: %"PRIu32"\n", en(0, 31-24+1, 24));
 	printf("V3D Id String: 0x%02"PRIx8" 0x%02"PRIx8" 0x%02"PRIx8"\n", en(0, 8, 16), en(0, 8, 8), en(0, 8, 0));
-	printf("V3D Id String: %c%c%c\n", en(0, 8, 16), en(0, 8, 8), en(0, 8, 0));
+	printf("V3D Id String: %c%c%c\n", en(0, 8, 0), en(0, 8, 8), en(0, 8, 16));
 	printf("VPM Memory Size: %"PRIu32"\n", en(1, 4, 28));
 
 	return 0;
