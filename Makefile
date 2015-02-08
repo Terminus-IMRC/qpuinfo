@@ -1,5 +1,5 @@
 PROG:=qpuinfo
-SRCS:=main.c mapmem.c pagesize.c
+SRCS:=main.c mapmem.c pagesize.c v3d_rw.c
 ALLDEPS:=
 CFLAGS:=-Wall -Wextra
 CC:=gcc
