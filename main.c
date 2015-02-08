@@ -26,5 +26,28 @@ int main()
 	printf("Number of Slices: %"PRIu32"\n", v3d_read(p, V3D_NSLC));
 	printf("V3D Revision: %"PRIu32"\n", v3d_read(p, V3D_REV));
 
+	printf("Tile Buffer Double-buffer Mode Support: %"PRIu32"\n", v3d_read(p, V3D_TLBDB));
+	printf("Tile Buffer Size: %"PRIu32"\n", v3d_read(p, V3D_TLBSZ));
+	printf("VRI Memory Size: %"PRIu32"\n", v3d_read(p, V3D_VRISZ));
+
+	printf("Scratch Register: 0x%08"PRIx32"\n", v3d_read(p, V3D_SCRATCH));
+
+	printf("L2 Cache Enable: %"PRIu32"\n", v3d_read(p, V3D_L2CENA));
+
+	printf("Binner Used Overspill Memory intterrupt status: %"PRIu32"\n", v3d_read(p, V3D_INT_SPILLUSE));
+	printf("Binner Out of Memory intterrupt status: %"PRIu32"\n", v3d_read(p, V3D_INT_OUTTOMEM));
+	printf("Binning Mode Flush Done intterrupt status: %"PRIu32"\n", v3d_read(p, V3D_INT_FLDONE));
+	printf("Render Mode Frame Done interrupt status: %"PRIu32"\n", v3d_read(p, V3D_INT_FRDONE));
+
+	printf("Binner Used Overspill Memory intterrupt enable: %"PRIu32"\n", v3d_read(p, V3D_EI_SPILLUSE));
+	printf("Binner Out of Memory intterrupt enable: %"PRIu32"\n", v3d_read(p, V3D_EI_OUTTOMEM));
+	printf("Binning Mode Flush Done intterrupt enable: %"PRIu32"\n", v3d_read(p, V3D_EI_FLDONE));
+	printf("Render Mode Frame Done interrupt enable: %"PRIu32"\n", v3d_read(p, V3D_EI_FRDONE));
+
+	printf("Binner Used Overspill Memory intterrupt disable: %"PRIu32"\n", v3d_read(p, V3D_DI_SPILLUSE));
+	printf("Binner Out of Memory intterrupt disable: %"PRIu32"\n", v3d_read(p, V3D_DI_OUTTOMEM));
+	printf("Binning Mode Flush Done intterrupt disable: %"PRIu32"\n", v3d_read(p, V3D_DI_FLDONE));
+	printf("Render Mode Frame Done interrupt disable: %"PRIu32"\n", v3d_read(p, V3D_DI_FRDONE));
+
 	return 0;
 }
