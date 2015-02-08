@@ -87,6 +87,44 @@ void v3d_init()
 	ram_add_node(DI_OUTTOMEM, 0x00038, 2, 2, RW_RW);
 	ram_add_node(DI_FLDONE, 0x00038, 1, 1, RW_RW);
 	ram_add_node(DI_FRDONE, 0x00038, 0, 0, RW_RW);
+
+	ram_add_node(CT0CS_CTRSTA, 0x00100, 15, 15, RW_WO);
+	ram_add_node(CT0CS_CTSEMA, 0x00100, 14, 12, RW_RO);
+	ram_add_node(CT0CS_CTRTSD, 0x00100, 9, 8, RW_RO);
+	ram_add_node(CT0CS_CTRUN, 0x00100, 5, 5, RW_RW);
+	ram_add_node(CT0CS_CTSUBS, 0x00100, 4, 4, RW_RW);
+	ram_add_node(CT0CS_CTERR, 0x00100, 3, 3, RW_RO);
+	ram_add_node(CT0CS_CTMODE, 0x00100, 0, 0, RW_RO);
+
+	ram_add_node(CT1CS_CTRSTA, 0x00104, 15, 15, RW_WO);
+	ram_add_node(CT1CS_CTSEMA, 0x00104, 14, 12, RW_RO);
+	ram_add_node(CT1CS_CTRTSD, 0x00104, 9, 8, RW_RO);
+	ram_add_node(CT1CS_CTRUN, 0x00104, 5, 5, RW_RW);
+	ram_add_node(CT1CS_CTSUBS, 0x00104, 4, 4, RW_RW);
+	ram_add_node(CT1CS_CTERR, 0x00104, 3, 3, RW_RO);
+	ram_add_node(CT1CS_CTMODE, 0x00104, 0, 0, RW_RO);
+
+	ram_add_node(CT0EA_CTLEA, 0x00108, 31, 0, RW_RW);
+
+	ram_add_node(CT1EA_CTLEA, 0x0010c, 31, 0, RW_RW);
+
+	ram_add_node(CT0CA_CTLCA, 0x00110, 31, 0, RW_RW);
+
+	ram_add_node(CT1CA_CTLCA, 0x00114, 31, 0, RW_RW);
+
+	ram_add_node(CT00RA0_CTLRA, 0x00118, 31, 0, RW_RO);
+
+	ram_add_node(CT01RA0_CTLRA, 0x0011c, 31, 0, RW_RO);
+
+	ram_add_node(CT0LC_CTLLCM, 0x00120, 31, 16, RW_RW);
+	ram_add_node(CT0LC_CTLSLCS, 0x00120, 15, 0, RW_RW);
+
+	ram_add_node(CT1LC_CTLLCM, 0x00124, 31, 16, RW_RW);
+	ram_add_node(CT1LC_CTLSLCS, 0x00124, 15, 0, RW_RW);
+
+	ram_add_node(CT0PC_CTLPC, 0x00128, 31, 0, RW_RO);
+
+	ram_add_node(CT1PC_CTLPC, 0x0012c, 31, 0, RW_RO);
 }
 
 uint32_t v3d_read(uint32_t *p, v3d_field_name_t fname)

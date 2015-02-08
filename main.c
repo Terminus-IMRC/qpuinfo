@@ -64,5 +64,65 @@ int main()
 	printf("Binning Mode Flush Done intterrupt disable: %"PRIu32"\n", v3d_read(p, V3D_DI_FLDONE));
 	printf("Render Mode Frame Done interrupt disable: %"PRIu32"\n", v3d_read(p, V3D_DI_FRDONE));
 
+	printf("\n");
+	printf("[Control List Executor Thread 0 Control and Status]\n");
+	printf("Counting Semaphore: %"PRIu32"\n", v3d_read(p, V3D_CT0CS_CTSEMA));
+	printf("Return Stack Depth: %"PRIu32"\n", v3d_read(p, V3D_CT0CS_CTRTSD));
+	printf("Control Thread Run: %"PRIu32"\n", v3d_read(p, V3D_CT0CS_CTRUN));
+	printf("Control Thread Sub-mode: %"PRIu32"\n", v3d_read(p, V3D_CT0CS_CTSUBS));
+	printf("Control Thread Error: %"PRIu32"\n", v3d_read(p, V3D_CT0CS_CTERR));
+	printf("Control Thread Mode (binning mode thread only): %"PRIu32"\n", v3d_read(p, V3D_CT0CS_CTMODE));
+
+	printf("\n");
+	printf("[Control List Executor Thread 1 Control and Status]\n");
+	printf("Counting Semaphore: %"PRIu32"\n", v3d_read(p, V3D_CT1CS_CTSEMA));
+	printf("Return Stack Depth: %"PRIu32"\n", v3d_read(p, V3D_CT1CS_CTRTSD));
+	printf("Control Thread Run: %"PRIu32"\n", v3d_read(p, V3D_CT1CS_CTRUN));
+	printf("Control Thread Sub-mode: %"PRIu32"\n", v3d_read(p, V3D_CT1CS_CTSUBS));
+	printf("Control Thread Error: %"PRIu32"\n", v3d_read(p, V3D_CT1CS_CTERR));
+	printf("Control Thread Mode (binning mode thread only): %"PRIu32"\n", v3d_read(p, V3D_CT1CS_CTMODE));
+
+	printf("\n");
+	printf("[Control List Executor Thread 0 End Address]\n");
+	printf("Control List End Address: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT0EA_CTLEA));
+
+	printf("\n");
+	printf("[Control List Executor Thread 1 End Address]\n");
+	printf("Control List End Address: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT1EA_CTLEA));
+
+	printf("\n");
+	printf("[Control List Executor Thread 0 Current Address]\n");
+	printf("Control List Current Address: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT0CA_CTLCA));
+
+	printf("\n");
+	printf("[Control List Executor Thread 1 Current Address]\n");
+	printf("Control List Current Address: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT1CA_CTLCA));
+
+	printf("\n");
+	printf("[Control List Executor Thread 0 Return Address 0]\n");
+	printf("Control List Return Address 0: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT00RA0_CTLRA));
+
+	printf("\n");
+	printf("[Control List Executor Thread 1 Return Address 0]\n");
+	printf("Control List Return Address 0: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT01RA0_CTLRA));
+
+	printf("\n");
+	printf("[Control List Executor Thread 0 List Counter]\n");
+	printf("Major List Counter: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT0LC_CTLLCM));
+	printf("Sub-list Counter: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT0LC_CTLSLCS));
+
+	printf("\n");
+	printf("[Control List Executor Thread 1 List Counter]\n");
+	printf("Major List Counter: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT1LC_CTLLCM));
+	printf("Sub-list Counter: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT1LC_CTLSLCS));
+
+	printf("\n");
+	printf("[Control List Executor Thread 0 Primitive List Counter]\n");
+	printf("Primitive List Counter: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT0PC_CTLPC));
+
+	printf("\n");
+	printf("[Control List Executor Thread 1 Primitive List Counter]\n");
+	printf("Primitive List Counter: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT1PC_CTLPC));
+
 	return 0;
 }
