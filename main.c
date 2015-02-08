@@ -13,6 +13,8 @@ int main()
 	printf("p: %p\n", p);
 	printf("p[0]: 0x%08"PRIx32"\n", p[0]);
 
+	v3d_init();
+
 	printf("V3D Technology Version: %"PRIu32"\n", v3d_read(p, V3D_TVER));
 	printf("V3D Id String: %c%c%c\n", v3d_read(p, V3D_IDSTR_V), v3d_read(p, V3D_IDSTR_3), v3d_read(p, V3D_IDSTR_D));
 
