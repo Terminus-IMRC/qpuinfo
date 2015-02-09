@@ -124,5 +124,97 @@ int main()
 	printf("[Control List Executor Thread 1 Primitive List Counter]\n");
 	printf("Primitive List Counter: 0x%08"PRIx32"\n", v3d_read(p, V3D_CT1PC_CTLPC));
 
+	printf("\n");
+	printf("[V3D Pipeline Control and Status]\n");
+	printf("Binning Mode Out Of Memory: %"PRIu32"\n", v3d_read(p, V3D_BMOOM));
+	printf("Rendering Mode Busy: %"PRIu32"\n", v3d_read(p, V3D_RMBUSY));
+	printf("Rendering Mode Active: %"PRIu32"\n", v3d_read(p, V3D_RMACTIVE));
+	printf("Binning Mode Busy: %"PRIu32"\n", v3d_read(p, V3D_BMBUSY));
+	printf("Binning Mode Active: %"PRIu32"\n", v3d_read(p, V3D_BMACTIVE));
+
+	printf("\n");
+	printf("[Binning Mode Flush Count]\n");
+	printf("Flush Count: %"PRIu32"\n", v3d_read(p, V3D_BMFCT));
+
+	printf("\n");
+	printf("[Rendering Mode Frame Count]\n");
+	printf("Frame Count: %"PRIu32"\n", v3d_read(p, V3D_RMFCT));
+
+	printf("\n");
+	printf("[Current Address of Binning Memory Pool]\n");
+	printf("Current Pool Address: 0x%08"PRIx32"\n", v3d_read(p, V3D_BMPCA));
+
+	printf("\n");
+	printf("[Remaining Size of Binning Memory Pool]\n");
+	printf("Size of Pool Remaining: %"PRIu32"\n", v3d_read(p, V3D_BMPRS));
+
+	printf("\n");
+	printf("[Address of Overspill Binning Memory Block]\n");
+	printf("Address of Overspill Memory Block for Binning: 0x%08"PRIx32"\n", v3d_read(p, V3D_BMPOA));
+
+	printf("\n");
+	printf("[Size of Overspill Binning Memory Block]\n");
+	printf("Size of Overspill Memory Block for Binning: %"PRIu32"\n", v3d_read(p, V3D_BMPOS));
+
+	printf("\n");
+	printf("[Binner Debug]\n");
+	printf("Disable Clipping: %"PRIu32"\n", v3d_read(p, V3D_CLIPDISA));
+	printf("Disable Forwarding in State Cache: %"PRIu32"\n", v3d_read(p, V3D_FWDDISA));
+
+	printf("\n");
+	printf("[Reserve QPUs 0-7]\n");
+	printf("Reservation settings for QPU 7: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV7));
+	printf("Reservation settings for QPU 6: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV6));
+	printf("Reservation settings for QPU 5: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV5));
+	printf("Reservation settings for QPU 4: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV4));
+	printf("Reservation settings for QPU 3: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV3));
+	printf("Reservation settings for QPU 2: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV2));
+	printf("Reservation settings for QPU 1: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV1));
+	printf("Reservation settings for QPU 0: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV0));
+
+	printf("\n");
+	printf("[Reserve QPUs 8-15]\n");
+	printf("Reservation settings for QPU 15: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV15));
+	printf("Reservation settings for QPU 14: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV14));
+	printf("Reservation settings for QPU 13: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV13));
+	printf("Reservation settings for QPU 12: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV12));
+	printf("Reservation settings for QPU 11: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV11));
+	printf("Reservation settings for QPU 10: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV10));
+	printf("Reservation settings for QPU 9: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV9));
+	printf("Reservation settings for QPU 8: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV8));
+
+	printf("\n");
+	printf("[QPU Scheduler Control]\n");
+	printf("Coordinate Shader Scheduling Bypass Limit: %"PRIu32"\n", v3d_read(p, V3D_CSRBL));
+	printf("Vertex Shader Scheduling Bypass Limit: %"PRIu32"\n", v3d_read(p, V3D_VSRBL));
+
+	printf("\n");
+	printf("[QPU User Program Request Uniforms Address]\n");
+	printf("Uniforms Address: 0x%08"PRIx32"\n", v3d_read(p, V3D_QPURQUA));
+
+	printf("\n");
+	printf("[QPU User Program Request Uniforms Length]\n");
+	printf("Uniforms Length: %"PRId32"\n", v3d_read(p, V3D_QPURQUL));
+
+	printf("\n");
+	printf("[QPU User Program Request Control and Status]\n");
+	printf("Count of user programs completed: %"PRId32"\n", v3d_read(p, V3D_QPURQCC));
+	printf("Count of user programs requests made: %"PRId32"\n", v3d_read(p, V3D_QPURQCM));
+	printf("Queue Error: %"PRId32"\n", v3d_read(p, V3D_QPURQERR));
+	printf("Queue Length: %"PRId32"\n", v3d_read(p, V3D_QPURQL));
+
+	printf("\n");
+	printf("[VPM Allocator Control]\n");
+	printf("Enable VPM allocation timeout: %"PRId32"\n", v3d_read(p, V3D_VPATOEN));
+	printf("Enable VPM allocation limits: %"PRId32"\n", v3d_read(p, V3D_VPALIMEN));
+	printf("Binning VPM allocation timeout %"PRId32"\n", v3d_read(p, V3D_VPABATO));
+	printf("Rendering VPM allocation timeout %"PRId32"\n", v3d_read(p, V3D_VPARATO));
+	printf("Binning VPM allocation limit %"PRId32"\n", v3d_read(p, V3D_VPABALIM));
+	printf("Rendering VPM allocation limit %"PRId32"\n", v3d_read(p, V3D_VPARALIM));
+
+	printf("\n");
+	printf("[VPM base (user) memory reservation]\n");
+	printf("VPM memory reserved for user programs: %"PRId32"\n", v3d_read(p, V3D_VPMURSV));
+
 	return 0;
 }

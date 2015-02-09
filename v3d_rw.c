@@ -125,6 +125,68 @@ void v3d_init()
 	ram_add_node(CT0PC_CTLPC, 0x00128, 31, 0, RW_RO);
 
 	ram_add_node(CT1PC_CTLPC, 0x0012c, 31, 0, RW_RO);
+
+	ram_add_node(BMOOM, 0x00130, 8, 8, RW_RO);
+	ram_add_node(RMBUSY, 0x00130, 3, 3, RW_RO);
+	ram_add_node(RMACTIVE, 0x00130, 2, 2, RW_RO);
+	ram_add_node(BMBUSY, 0x00130, 1, 1, RW_RO);
+	ram_add_node(BMACTIVE, 0x00130, 0, 0, RW_RO);
+
+	ram_add_node(BMFCT, 0x00134, 7, 0, RW_RW);
+
+	ram_add_node(RMFCT, 0x00138, 7, 0, RW_RW);
+
+	ram_add_node(BMPCA, 0x00300, 31, 0, RW_RO);
+
+	ram_add_node(BMPRS, 0x00304, 31, 0, RW_RO);
+
+	ram_add_node(BMPOA, 0x00308, 31, 0, RW_RW);
+
+	ram_add_node(BMPOS, 0x0030c, 31, 0, RW_RW);
+
+	ram_add_node(CLIPDISA, 0x00310, 1, 1, RW_RW);
+	ram_add_node(FWDDISA, 0x00310, 0, 0, RW_RW);
+
+	ram_add_node(QPURSV7, 0x00410, 31, 28, RW_RW);
+	ram_add_node(QPURSV6, 0x00410, 27, 24, RW_RW);
+	ram_add_node(QPURSV5, 0x00410, 23, 20, RW_RW);
+	ram_add_node(QPURSV4, 0x00410, 19, 16, RW_RW);
+	ram_add_node(QPURSV3, 0x00410, 15, 12, RW_RW);
+	ram_add_node(QPURSV2, 0x00410, 11, 8, RW_RW);
+	ram_add_node(QPURSV1, 0x00410, 7, 4, RW_RW);
+	ram_add_node(QPURSV0, 0x00410, 3, 0, RW_RW);
+
+	ram_add_node(QPURSV15, 0x00414, 31, 28, RW_RW);
+	ram_add_node(QPURSV14, 0x00414, 27, 24, RW_RW);
+	ram_add_node(QPURSV13, 0x00414, 23, 20, RW_RW);
+	ram_add_node(QPURSV12, 0x00414, 19, 16, RW_RW);
+	ram_add_node(QPURSV11, 0x00414, 15, 12, RW_RW);
+	ram_add_node(QPURSV10, 0x00414, 11, 8, RW_RW);
+	ram_add_node(QPURSV9, 0x00414, 7, 4, RW_RW);
+	ram_add_node(QPURSV8, 0x00414, 3, 0, RW_RW);
+
+	ram_add_node(CSRBL, 0x00418, 3, 2, RW_RW);
+	ram_add_node(VSRBL, 0x00418, 1, 0, RW_RW);
+
+	ram_add_node(QPURQPC, 0x00430, 31, 0, RW_WO);
+
+	ram_add_node(QPURQUA, 0x00434, 31, 0, RW_RW);
+
+	ram_add_node(QPURQUL, 0x00438, 11, 0, RW_RW);
+
+	ram_add_node(QPURQCC, 0x0043c, 23, 16, RW_RW);
+	ram_add_node(QPURQCM, 0x0043c, 15, 8, RW_RW);
+	ram_add_node(QPURQERR, 0x0043c, 7, 7, RW_RW);
+	ram_add_node(QPURQL, 0x0043c, 5, 0, RW_RW);
+
+	ram_add_node(VPATOEN, 0x00500, 13, 13, RW_RW);
+	ram_add_node(VPALIMEN, 0x00500, 12, 12, RW_RW);
+	ram_add_node(VPABATO, 0x00500, 11, 9, RW_RW);
+	ram_add_node(VPARATO, 0x00500, 8, 6, RW_RW);
+	ram_add_node(VPABALIM, 0x00500, 5, 3, RW_RW);
+	ram_add_node(VPARALIM, 0x00500, 2, 0, RW_RW);
+
+	ram_add_node(VPMURSV, 0x00504, 4, 0, RW_RW);
 }
 
 uint32_t v3d_read(uint32_t *p, v3d_field_name_t fname)
