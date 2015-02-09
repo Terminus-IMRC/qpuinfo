@@ -187,6 +187,104 @@ void v3d_init()
 	ram_add_node(VPARALIM, 0x00500, 2, 0, RW_RW);
 
 	ram_add_node(VPMURSV, 0x00504, 4, 0, RW_RW);
+
+	ram_add_node(CTCLR15, 0x00670, 15, 15, RW_WO);
+	ram_add_node(CTCLR14, 0x00670, 14, 14, RW_WO);
+	ram_add_node(CTCLR13, 0x00670, 13, 13, RW_WO);
+	ram_add_node(CTCLR12, 0x00670, 12, 12, RW_WO);
+	ram_add_node(CTCLR11, 0x00670, 11, 11, RW_WO);
+	ram_add_node(CTCLR10, 0x00670, 10, 10, RW_WO);
+	ram_add_node(CTCLR9, 0x00670, 9, 9, RW_WO);
+	ram_add_node(CTCLR8, 0x00670, 8, 8, RW_WO);
+	ram_add_node(CTCLR7, 0x00670, 7, 7, RW_WO);
+	ram_add_node(CTCLR6, 0x00670, 9, 9, RW_WO);
+	ram_add_node(CTCLR5, 0x00670, 5, 5, RW_WO);
+	ram_add_node(CTCLR4, 0x00670, 4, 4, RW_WO);
+	ram_add_node(CTCLR3, 0x00670, 3, 3, RW_WO);
+	ram_add_node(CTCLR2, 0x00670, 2, 2, RW_WO);
+	ram_add_node(CTCLR1, 0x00670, 1, 1, RW_WO);
+	ram_add_node(CTCLR0, 0x00670, 0, 0, RW_WO);
+
+	ram_add_node(CTEN15, 0x00674, 15, 15, RW_RW);
+	ram_add_node(CTEN14, 0x00674, 14, 14, RW_RW);
+	ram_add_node(CTEN13, 0x00674, 13, 13, RW_RW);
+	ram_add_node(CTEN12, 0x00674, 12, 12, RW_RW);
+	ram_add_node(CTEN11, 0x00674, 11, 11, RW_RW);
+	ram_add_node(CTEN10, 0x00674, 10, 10, RW_RW);
+	ram_add_node(CTEN9, 0x00674, 9, 9, RW_RW);
+	ram_add_node(CTEN8, 0x00674, 8, 8, RW_RW);
+	ram_add_node(CTEN7, 0x00674, 7, 7, RW_RW);
+	ram_add_node(CTEN6, 0x00674, 6, 6, RW_RW);
+	ram_add_node(CTEN5, 0x00674, 5, 5, RW_RW);
+	ram_add_node(CTEN4, 0x00674, 4, 4, RW_RW);
+	ram_add_node(CTEN3, 0x00674, 3, 3, RW_RW);
+	ram_add_node(CTEN2, 0x00674, 2, 2, RW_RW);
+	ram_add_node(CTEN1, 0x00674, 1, 1, RW_RW);
+	ram_add_node(CTEN0, 0x00674, 0, 0, RW_RW);
+
+	ram_add_node(PCTR0, 0x00680, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS0, 0x00684, 4, 0, RW_RW);
+
+	ram_add_node(PCTR1, 0x00688, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS1, 0x0068c, 4, 0, RW_RW);
+
+	ram_add_node(PCTR2, 0x00690, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS2, 0x00694, 4, 0, RW_RW);
+
+	ram_add_node(PCTR3, 0x00698, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS3, 0x0069c, 4, 0, RW_RW);
+
+	ram_add_node(PCTR4, 0x006a0, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS4, 0x006a4, 4, 0, RW_RW);
+
+	ram_add_node(PCTR5, 0x006a8, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS5, 0x006ac, 4, 0, RW_RW);
+
+	ram_add_node(PCTR6, 0x006b0, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS6, 0x006b4, 4, 0, RW_RW);
+
+	ram_add_node(PCTR7, 0x006b8, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS7, 0x006bc, 4, 0, RW_RW);
+
+	ram_add_node(PCTR8, 0x006c0, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS8, 0x006c4, 4, 0, RW_RW);
+
+	ram_add_node(PCTR9, 0x006c8, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS9, 0x006cc, 4, 0, RW_RW);
+
+	ram_add_node(PCTR10, 0x006d0, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS10, 0x006d4, 4, 0, RW_RW);
+
+	ram_add_node(PCTR11, 0x006d8, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS11, 0x006dc, 4, 0, RW_RW);
+
+	ram_add_node(PCTR12, 0x006e0, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS12, 0x006e4, 4, 0, RW_RW);
+
+	ram_add_node(PCTR13, 0x006e8, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS13, 0x006ec, 4, 0, RW_RW);
+
+	ram_add_node(PCTR14, 0x006f0, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS14, 0x006f4, 4, 0, RW_RW);
+
+	ram_add_node(PCTR15, 0x006f8, 31, 0, RW_RW);
+
+	ram_add_node(PCTRS15, 0x006fc, 4, 0, RW_RW);
 }
 
 uint32_t v3d_read(uint32_t *p, v3d_field_name_t fname)
