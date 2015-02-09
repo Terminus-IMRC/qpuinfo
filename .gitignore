@@ -1,0 +1,5 @@
+qpuinfo
+*.c.o
+*.c.d
+
+*.swp
