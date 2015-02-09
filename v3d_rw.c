@@ -285,6 +285,105 @@ void v3d_init()
 	ram_add_node(PCTR15, 0x006f8, 31, 0, RW_RW);
 
 	ram_add_node(PCTRS15, 0x006fc, 4, 0, RW_RW);
+
+	ram_add_node(IPD2_FPDUSED, 0x00f00, 20, 20, RW_RO);
+	ram_add_node(IPD2_VALID, 0x00f00, 19, 19, RW_RO);
+	ram_add_node(MULIP2, 0x00f00, 18, 18, RW_RO);
+	ram_add_node(MULIP1, 0x00f00, 17, 17, RW_RO);
+	ram_add_node(MULIP0, 0x00f00, 16, 16, RW_RO);
+	ram_add_node(VR1_B, 0x00f00, 2, 2, RW_RO);
+	ram_add_node(VR1_A, 0x00f00, 1, 1, RW_RO);
+
+	ram_add_node(EZREQ_FIFO_ORUN, 0x00f04, 17, 17, RW_RO);
+	ram_add_node(EZVAL_FIFO_ORUN, 0x00f04, 15, 15, RW_RO);
+	ram_add_node(DEPTHO_ORUN, 0x00f04, 14, 14, RW_RO);
+	ram_add_node(DEPTHO_FIFO_ORUN, 0x00f04, 13, 13, RW_RO);
+	ram_add_node(REFXY_FIFO_ORUN, 0x00f04, 12, 12, RW_RO);
+	ram_add_node(ZCOEFF_FIFO_FULL, 0x00f04, 11, 11, RW_RO);
+	ram_add_node(XYRELW_FIFO_ORUN, 0x00f04, 10, 10, RW_RO);
+	ram_add_node(XYRELO_FIFO_ORUN, 0x00f04, 7, 7, RW_RO);
+	ram_add_node(FIXZ_ORUN, 0x00f04, 6, 6, RW_RO);
+	ram_add_node(XYFO_FIFO_ORUN, 0x00f04, 5, 5, RW_RO);
+	ram_add_node(QBSZ_FIFO_ORUN, 0x00f04, 4, 4, RW_RO);
+	ram_add_node(QBFR_FIFO_ORUN, 0x00f04, 3, 3, RW_RO);
+	ram_add_node(XYRELZ_FIFO_FULL, 0x00f04, 2, 2, RW_RO);
+	ram_add_node(WCOEFF_FIFO_FULL, 0x00f04, 1, 1, RW_RO);
+
+	ram_add_node(XYFO_FIFO_OP_READY, 0x00f08, 28, 28, RW_RO);
+	ram_add_node(QXYF_FIFO_OP_READY, 0x00f08, 27, 27, RW_RO);
+	ram_add_node(RAST_BUSY, 0x00f08, 26, 26, RW_RO);
+	ram_add_node(EZ_XY_READY, 0x00f08, 25, 25, RW_RO);
+	ram_add_node(EZ_DATA_READY, 0x00f08, 23, 23, RW_RO);
+	ram_add_node(ZRWPE_READY, 0x00f08, 7, 7, RW_RO);
+	ram_add_node(ZRWPE_STALL, 0x00f08, 6, 6, RW_RO);
+	ram_add_node(EDGES_CTRLID, 0x00f08, 5, 3, RW_RO);
+	ram_add_node(EDGES_ISCTRL, 0x00f08, 2, 2, RW_RO);
+	ram_add_node(EDGES_READY, 0x00f08, 1, 1, RW_RO);
+	ram_add_node(EDGES_STALL, 0x00f08, 0, 0, RW_RO);
+
+	ram_add_node(FIXZ_READY, 0x00f0c, 30, 30, RW_RO);
+	ram_add_node(RECIPW_READY, 0x00f0c, 28, 28, RW_RO);
+	ram_add_node(INTERPRW_READY, 0x00f0c, 27, 27, RW_RO);
+	ram_add_node(INTERPZ_READY, 0x00f0c, 24, 24, RW_RO);
+	ram_add_node(XYRELZ_FIFO_LAST, 0x00f0c, 23, 23, RW_RO);
+	ram_add_node(XYRELZ_FIFO_READY, 0x00f0c, 22, 22, RW_RO);
+	ram_add_node(XYNRM_LAST, 0x00f0c, 21, 21, RW_RO);
+	ram_add_node(XYNRM_READY, 0x00f0c, 20, 20, RW_RO);
+	ram_add_node(EZLIM_READY, 0x00f0c, 19, 19, RW_RO);
+	ram_add_node(DEPTHO_READY, 0x00f0c, 18, 18, RW_RO);
+	ram_add_node(RAST_LAST, 0x00f0c, 17, 17, RW_RO);
+	ram_add_node(RAST_READY, 0x00f0c, 16, 16, RW_RO);
+	ram_add_node(XYFO_FIFO_READY, 0x00f0c, 14, 14, RW_RO);
+	ram_add_node(ZO_FIFO_READY, 0x00f0c, 13, 13, RW_RO);
+	ram_add_node(XYRELO_FIFO_READY, 0x00f0c, 11, 11, RW_RO);
+	ram_add_node(WCOEFF_FIFO_READY, 0x00f0c, 7, 7, RW_RO);
+	ram_add_node(XYRELW_FIFO_READY, 0x00f0c, 6, 6, RW_RO);
+	ram_add_node(ZCOEFF_FIFO_READY, 0x00f0c, 5, 5, RW_RO);
+	ram_add_node(REFXY_FIFO_READY, 0x00f0c, 4, 4, RW_RO);
+	ram_add_node(DEPTHO_FIFO_READY, 0x00f0c, 3, 3, RW_RO);
+	ram_add_node(EZVAL_FIFO_READY, 0x00f0c, 2, 2, RW_RO);
+	ram_add_node(EZREQ_FIFO_READY, 0x00f0c, 1, 1, RW_RO);
+	ram_add_node(QXYF_FIFO_READY, 0x00f0c, 0, 0, RW_RO);
+
+	ram_add_node(ZO_FIFO_IP_STALL, 0x00f10, 28, 28, RW_RO);
+	ram_add_node(RECIPW_IP_STALL, 0x00f10, 25, 25, RW_RO);
+	ram_add_node(INTERPW_IP_STALL, 0x00f10, 22, 22, RW_RO);
+	ram_add_node(XYRELZ_FIFO_IP_STALL, 0x00f10, 18, 18, RW_RO);
+	ram_add_node(INTERPZ_IP_STALL, 0x00f10, 17, 17, RW_RO);
+	ram_add_node(DEPTHO_FIFO_IP_STALL, 0x00f10, 16, 16, RW_RO);
+	ram_add_node(EZLIM_IP_STALL, 0x00f10, 15, 15, RW_RO);
+	ram_add_node(XYNRM_IP_STALL, 0x00f10, 14, 14, RW_RO);
+	ram_add_node(EZREQ_FIFO_OP_VALID, 0x00f10, 13, 13, RW_RO);
+	ram_add_node(QXYF_FIFO_OP_VALID, 0x00f10, 12, 12, RW_RO);
+	ram_add_node(QXYF_FIFO_OP_LAST, 0x00f10, 11, 11, RW_RO);
+	ram_add_node(QXYF_FIFO_OP1_DUMMY, 0x00f10, 10, 10, RW_RO);
+	ram_add_node(QXYF_FIFO_OP1_LAST, 0x00f10, 9, 9, RW_RO);
+	ram_add_node(QXYF_FIFO_OP1_VALID, 0x00f10, 8, 8, RW_RO);
+	ram_add_node(EZTEST_ANYQVALID, 0x00f10, 7, 7, RW_RO);
+	ram_add_node(EZTEST_ANYQF, 0x00f10, 6, 6, RW_RO);
+	ram_add_node(EZTEST_QREADY, 0x00f10, 5, 5, RW_RO);
+	ram_add_node(EZTEST_VLF_OKNOVALID, 0x00f10, 4, 4, RW_RO);
+	ram_add_node(EZTEST_STALL, 0x00f10, 3, 3, RW_RO);
+	ram_add_node(EZTEST_IP_VLFSTALL, 0x00f10, 2, 2, RW_RO);
+	ram_add_node(EZTEST_IP_PRSTALL, 0x00f10, 1, 1, RW_RO);
+	ram_add_node(EZTEST_IP_QSTALL, 0x00f10, 0, 0, RW_RO);
+
+	ram_add_node(L2CARE, 0x00f20, 15, 15, RW_RO);
+	ram_add_node(VCMBE, 0x00f20, 14, 14, RW_RO);
+	ram_add_node(VCMRE, 0x00f20, 13, 13, RW_RO);
+	ram_add_node(VCDI, 0x00f20, 12, 12, RW_RO);
+	ram_add_node(VCDE, 0x00f20, 11, 11, RW_RO);
+	ram_add_node(VDWE, 0x00f20, 10, 10, RW_RO);
+	ram_add_node(VPMEAS, 0x00f20, 9, 9, RW_RO);
+	ram_add_node(VPMEFNA, 0x00f20, 8, 8, RW_RO);
+	ram_add_node(VPMEWNA, 0x00f20, 7, 7, RW_RO);
+	ram_add_node(VPMERNA, 0x00f20, 6, 6, RW_RO);
+	ram_add_node(VPMERR, 0x00f20, 5, 5, RW_RO);
+	ram_add_node(VPMEWR, 0x00f20, 4, 4, RW_RO);
+	ram_add_node(VPAERRGL, 0x00f20, 3, 3, RW_RO);
+	ram_add_node(VPAEBRGL, 0x00f20, 2, 2, RW_RO);
+	ram_add_node(VPAERGS, 0x00f20, 1, 1, RW_RO);
+	ram_add_node(VPAEABB, 0x00f20, 0, 0, RW_RO);
 }
 
 uint32_t v3d_read(uint32_t *p, v3d_field_name_t fname)
