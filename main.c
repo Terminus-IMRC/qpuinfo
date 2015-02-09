@@ -10,9 +10,6 @@ int main()
 
 	p=mapmem();
 
-	printf("p: %p\n", p);
-	printf("p[0]: 0x%08"PRIx32"\n", p[0]);
-
 	v3d_init();
 
 	printf("[V3D Identification 0 (V3D block identity)]\n");
