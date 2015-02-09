@@ -162,26 +162,23 @@ int main()
 	printf("Disable Forwarding in State Cache: %"PRIu32"\n", v3d_read(p, V3D_FWDDISA));
 
 	printf("\n");
-	printf("[Reserve QPUs 0-7]\n");
-	printf("Reservation settings for QPU 7: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV7));
-	printf("Reservation settings for QPU 6: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV6));
-	printf("Reservation settings for QPU 5: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV5));
-	printf("Reservation settings for QPU 4: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV4));
-	printf("Reservation settings for QPU 3: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV3));
-	printf("Reservation settings for QPU 2: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV2));
-	printf("Reservation settings for QPU 1: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV1));
+	printf("[Reserve QPUs]\n");
 	printf("Reservation settings for QPU 0: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV0));
-
-	printf("\n");
-	printf("[Reserve QPUs 8-15]\n");
-	printf("Reservation settings for QPU 15: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV15));
-	printf("Reservation settings for QPU 14: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV14));
-	printf("Reservation settings for QPU 13: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV13));
-	printf("Reservation settings for QPU 12: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV12));
-	printf("Reservation settings for QPU 11: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV11));
-	printf("Reservation settings for QPU 10: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV10));
-	printf("Reservation settings for QPU 9: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV9));
+	printf("Reservation settings for QPU 1: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV1));
+	printf("Reservation settings for QPU 2: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV2));
+	printf("Reservation settings for QPU 3: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV3));
+	printf("Reservation settings for QPU 4: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV4));
+	printf("Reservation settings for QPU 5: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV5));
+	printf("Reservation settings for QPU 6: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV6));
+	printf("Reservation settings for QPU 7: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV7));
 	printf("Reservation settings for QPU 8: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV8));
+	printf("Reservation settings for QPU 9: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV9));
+	printf("Reservation settings for QPU 10: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV10));
+	printf("Reservation settings for QPU 11: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV11));
+	printf("Reservation settings for QPU 12: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV12));
+	printf("Reservation settings for QPU 13: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV13));
+	printf("Reservation settings for QPU 14: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV14));
+	printf("Reservation settings for QPU 15: 0x%1"PRIx32"\n", v3d_read(p, V3D_QPURSV15));
 
 	printf("\n");
 	printf("[QPU Scheduler Control]\n");
