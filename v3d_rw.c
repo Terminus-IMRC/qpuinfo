@@ -398,3 +398,16 @@ uint32_t v3d_read(uint32_t *p, v3d_field_name_t fname)
 
 	return extract_value_from_ram(fname);
 }
+
+void v3d_write(uint32_t *p, v3d_field_name_t fname, uint32_t value)
+{
+	if ((fname < 0) || (fname >= V3D_NFNAME)) {
+		fprintf(stderr, "%s:%d: error: field name out of range: %d\n", __FILE__, __LINE__, fname);
+		exit(EXIT_FAILURE);
+	} else if (v3d_reg_addr_map[fname].rw == RW_RO) {
+		fprintf(stderr, "%s:%d: error: read only register: %s\n", __FILE__, __LINE__, v3d_reg_addr_map[fname].name);
+		exit(EXIT_FAILURE);
+	}
+
+	p[v3d_reg_addr_map[fname].offset] = (p[v3d_reg_addr_map[fname].offset] & (~v3d_reg_addr_map[fname].mask)) | (value << v3d_reg_addr_map[fname].sr);
+}
