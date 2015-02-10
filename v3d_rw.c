@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include "v3d_rw.h"
 
-#define gt(n, sr) ((((((n))>=32?0:(1<<((n))))-1)<<((sr))))
-#define en(e, n, sr) ((((p[((e))]&((gt(((n)), ((sr)))))))>>((sr))))
-#define rf(offset_in_1_byte, bit_from, bit_to) ((en(((offset_in_1_byte))/(32/8), ((bit_from))-((bit_to))+1, ((bit_to)))))
-#define rgt(bit_from, bit_to) ((gt(((bit_from))-((bit_to))+1, ((bit_to)))))
-#define renm(fname) (((p[v3d_reg_addr_map[fname].offset]&v3d_reg_addr_map[fname].mask)>>v3d_reg_addr_map[fname].sr))
+#define generate_mask(n, sr) ((((((n))>=32?0:(1<<((n))))-1)<<((sr))))
+#define generate_mask_with_bit_range(bit_from, bit_to) ((generate_mask(((bit_from))-((bit_to))+1, ((bit_to)))))
+#define extract_value(e, n, sr) ((((p[((e))]&((generate_mask(((n)), ((sr)))))))>>((sr))))
+#define extract_value_with_bit_range(offset_in_1_byte, bit_from, bit_to) ((extract_value(((offset_in_1_byte))/(32/8), ((bit_from))-((bit_to))+1, ((bit_to)))))
+#define extract_value_from_ram(fname) (((p[v3d_reg_addr_map[fname].offset]&v3d_reg_addr_map[fname].mask)>>v3d_reg_addr_map[fname].sr))
 
 typedef enum {
 	RW_WO = 0x1, RW_RO = 0x2, RW_RW = 0x3
@@ -26,7 +26,7 @@ struct {
 
 #define ram_add_node(fname_suf, offset_in_byte, bit_from, bit_to, bit_rw) \
 	v3d_reg_addr_map[V3D_##fname_suf].offset = ((offset_in_byte))/(32/8); \
-	v3d_reg_addr_map[V3D_##fname_suf].mask = rgt(((bit_from)), ((bit_to))); \
+	v3d_reg_addr_map[V3D_##fname_suf].mask = generate_mask_with_bit_range(((bit_from)), ((bit_to))); \
 	v3d_reg_addr_map[V3D_##fname_suf].sr = ((bit_to)); \
 	v3d_reg_addr_map[V3D_##fname_suf].name = STR(V3D_##fname_suf); \
 	v3d_reg_addr_map[V3D_##fname_suf].rw = bit_rw;
@@ -396,5 +396,5 @@ uint32_t v3d_read(uint32_t *p, v3d_field_name_t fname)
 		exit(EXIT_FAILURE);
 	}
 
-	return renm(fname);
+	return extract_value_from_ram(fname);
 }
