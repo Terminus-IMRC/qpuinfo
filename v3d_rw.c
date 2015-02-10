@@ -392,7 +392,7 @@ uint32_t v3d_read(uint32_t *p, v3d_field_name_t fname)
 		fprintf(stderr, "%s:%d: error: field name out of range: %d\n", __FILE__, __LINE__, fname);
 		exit(EXIT_FAILURE);
 	} else if (v3d_reg_addr_map[fname].rw == RW_WO) {
-		fprintf(stderr, "%s:%d: error: write only register: %d\n", __FILE__, __LINE__, fname);
+		fprintf(stderr, "%s:%d: error: write only register: %s\n", __FILE__, __LINE__, v3d_reg_addr_map[fname].name);
 		exit(EXIT_FAILURE);
 	}
 
