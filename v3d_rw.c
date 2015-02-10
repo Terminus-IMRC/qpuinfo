@@ -7,7 +7,6 @@
 #define generate_mask_with_bit_range(bit_from, bit_to) ((generate_mask(((bit_from))-((bit_to))+1, ((bit_to)))))
 #define extract_value(e, n, sr) ((((p[((e))]&((generate_mask(((n)), ((sr)))))))>>((sr))))
 #define extract_value_with_bit_range(offset_in_1_byte, bit_from, bit_to) ((extract_value(((offset_in_1_byte))/(32/8), ((bit_from))-((bit_to))+1, ((bit_to)))))
-#define extract_value_from_ram(fname) (((p[v3d_reg_addr_map[fname].offset]&v3d_reg_addr_map[fname].mask)>>v3d_reg_addr_map[fname].sr))
 
 typedef enum {
 	RW_WO = 0x1, RW_RO = 0x2, RW_RW = 0x3
@@ -396,7 +395,7 @@ uint32_t v3d_read(uint32_t *p, v3d_field_name_t fname)
 		exit(EXIT_FAILURE);
 	}
 
-	return extract_value_from_ram(fname);
+	return (p[v3d_reg_addr_map[fname].offset] & v3d_reg_addr_map[fname].mask) >> v3d_reg_addr_map[fname].sr;
 }
 
 void v3d_write(uint32_t *p, v3d_field_name_t fname, uint32_t value)
