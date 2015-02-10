@@ -12,9 +12,9 @@ TARGETS_NO_NEED_DEPS:=clean
 OBJS:=$(SRCS:%.c=%.c.o)
 DEPS:=$(SRCS:%.c=%.c.d)
 
-COMPILE.c=$(CC) $(CFLAGS) -c
-COMPILE.d=$(CC) $(CFLAGS) -M -MP -MT $<.o -MF $@
-LINK.o=$(CC) $(LDFLAGS)
+COMPILE.c=$(CC) $(CFLAGS) $(TARGET_ARCH) -c
+COMPILE.d=$(CC) $(CFLAGS) $(TARGET_ARCH) -M -MP -MT $<.o -MF $@
+LINK.o=$(CC) $(LDFLAGS) $(TARGET_ARCH)
 
 all: $(PROG)
 
