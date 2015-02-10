@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include "mapmem.h"
-#include "v3d_rw.h"
+#include "v3d.h"
 
 int main()
 {
@@ -371,6 +371,8 @@ int main()
 	printf("VPM Allocator error - binner request greater than limit: %"PRIu32"\n", v3d_read(p, V3D_VPAEBRGL));
 	printf("VPM Allocator error - request too big: %"PRIu32"\n", v3d_read(p, V3D_VPAERGS));
 	printf("VPM Allocator error - allocating base while busy: %"PRIu32"\n", v3d_read(p, V3D_VPAEABB));
+
+	v3d_finalize();
 
 	return 0;
 }
