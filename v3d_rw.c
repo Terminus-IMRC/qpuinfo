@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include "v3d_rw.h"
 
 #define generate_mask(n, sr) ((((((n))>=32?0:(1<<((n))))-1)<<((sr))))
@@ -405,6 +406,9 @@ void v3d_write(uint32_t *p, v3d_field_name_t fname, uint32_t value)
 		exit(EXIT_FAILURE);
 	} else if (v3d_reg_addr_map[fname].rw == RW_RO) {
 		fprintf(stderr, "%s:%d: error: read only register: %s\n", __FILE__, __LINE__, v3d_reg_addr_map[fname].name);
+		exit(EXIT_FAILURE);
+	} else if (value > (v3d_reg_addr_map[fname].mask >> v3d_reg_addr_map[fname].sr)) {
+		fprintf(stderr, "%s:%d: error: too big value for the register %s: %"PRIu32"\n", __FILE__, __LINE__, v3d_reg_addr_map[fname].name, value);
 		exit(EXIT_FAILURE);
 	}
 
