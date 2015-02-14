@@ -1,0 +1,3 @@
+[submodule "mailbox"]
+	path = mailbox
+	url = https://github.com/Terminus-IMRC/mailbox.git

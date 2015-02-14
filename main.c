@@ -2,11 +2,16 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include "mapmem.h"
+#include "mailbox/mailbox.h"
 #include "v3d.h"
 
 int main()
 {
+	int fd;
 	uint32_t *p;
+
+	fd=mbox_open();
+	qpu_enable(fd, 1);
 
 	p=mapmem();
 
@@ -373,6 +378,9 @@ int main()
 	printf("VPM Allocator error - allocating base while busy: %"PRIu32"\n", v3d_read(p, V3D_VPAEABB));
 
 	v3d_finalize();
+
+	qpu_enable(fd, 0);
+	mbox_close(fd);
 
 	return 0;
 }
