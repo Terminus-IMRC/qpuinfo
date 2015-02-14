@@ -2,3 +2,6 @@
 	path = mailbox
 	url = https://github.com/Terminus-IMRC/mailbox.git
 	ignore = dirty
+[submodule "libvc4v3d"]
+	path = libvc4v3d
+	url = https://github.com/Terminus-IMRC/libvc4v3d.git
