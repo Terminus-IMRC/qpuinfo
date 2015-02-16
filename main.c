@@ -1,17 +1,43 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <inttypes.h>
 #include "mapmem.h"
 #include "mailbox/mailbox.h"
 #include "v3d.h"
 
-int main()
+static void usage(const char *progname)
+{
+	fprintf(stderr, "Usage: %s [-e] [-d]\n-e to enable QPU at first\n-d to disable at last\n", progname);
+}
+
+int main(int argc, char *argv[])
 {
 	int fd;
 	uint32_t *p;
+	int opt;
+	_Bool flag_enable_qpu=0, flag_disable_qpu=0;
 
-	fd=mbox_open();
-	qpu_enable(fd, 1);
+	while((opt=getopt(argc, argv, "ed"))!=-1){
+		switch(opt){
+			case 'e':
+				flag_enable_qpu=!0;
+				break;
+			case 'd':
+				flag_disable_qpu=!0;
+				break;
+			default:
+				fprintf(stderr, "error: unknown option: %c\n", opt);
+				usage(argv[0]);
+				exit(EXIT_FAILURE);
+		}
+	}
+
+	if(flag_enable_qpu||flag_disable_qpu)
+		fd=mbox_open();
+	if(flag_enable_qpu)
+		qpu_enable(fd, 1);
 
 	p=mapmem();
 
@@ -379,8 +405,10 @@ int main()
 
 	v3d_finalize();
 
-	qpu_enable(fd, 0);
-	mbox_close(fd);
+	if(flag_disable_qpu)
+		qpu_enable(fd, 0);
+	if(flag_enable_qpu||flag_disable_qpu)
+		mbox_close(fd);
 
 	return 0;
 }
