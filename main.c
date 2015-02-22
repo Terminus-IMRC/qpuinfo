@@ -9,7 +9,12 @@
 
 static void usage(const char *progname)
 {
-	fprintf(stderr, "Usage: %s [-e] [-d] [-r]\n-e to enable QPU at first\n-d to disable at last\n-r to reset V3D registers after printing\n", progname);
+	fprintf(stderr, \
+		"Usage: %s [-e] [-d] [-r]\n" \
+		"-e to enable QPU at first\n" \
+		"-d to disable at last\n" \
+		"-r to reset V3D registers after printing\n" \
+		, progname);
 }
 
 int main(int argc, char *argv[])
