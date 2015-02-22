@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <inttypes.h>
+#include <sys/types.h>
 #include "mapmem.h"
 #include "mailbox/mailbox.h"
 #include "v3d.h"
@@ -10,10 +11,12 @@
 static void usage(const char *progname)
 {
 	fprintf(stderr, \
-		"Usage: %s [-e] [-d] [-r]\n" \
+		"Usage: %s [-e] [-d] [-r] [-1|-2]\n" \
 		"-e to enable QPU at first\n" \
 		"-d to disable at last\n" \
 		"-r to reset V3D registers after printing\n" \
+		"-1 to use BCM2835 V3D address offset\n" \
+		"-2 to use BCM2836 V3D address offset\n" \
 		, progname);
 }
 
@@ -22,9 +25,10 @@ int main(int argc, char *argv[])
 	int fd;
 	uint32_t *p;
 	int opt;
-	_Bool flag_enable_qpu=0, flag_disable_qpu=0, flag_reset_v3d=0;
+	off_t v3d_offset=BCM2835_V3D_OFFSET;
+	_Bool flag_enable_qpu=0, flag_disable_qpu=0, flag_reset_v3d=0, soc_set=0;
 
-	while((opt=getopt(argc, argv, "edr"))!=-1){
+	while((opt=getopt(argc, argv, "edr12"))!=-1){
 		switch(opt){
 			case 'e':
 				flag_enable_qpu=!0;
@@ -34,6 +38,24 @@ int main(int argc, char *argv[])
 				break;
 			case 'r':
 				flag_reset_v3d=!0;
+				break;
+			case '1':
+				if(soc_set){
+					fprintf(stderr, "error: SoC type option is specified more than once\n");
+					usage(argv[0]);
+					exit(EXIT_FAILURE);
+				}
+				v3d_offset=BCM2835_V3D_OFFSET;
+				soc_set=!0;
+				break;
+			case '2':
+				if(soc_set){
+					fprintf(stderr, "error: SoC type option is specified more than once\n");
+					usage(argv[0]);
+					exit(EXIT_FAILURE);
+				}
+				v3d_offset=BCM2836_V3D_OFFSET;
+				soc_set=!0;
 				break;
 			default:
 				fprintf(stderr, "error: unknown option: %c\n", opt);
@@ -47,7 +69,7 @@ int main(int argc, char *argv[])
 	if(flag_enable_qpu)
 		qpu_enable(fd, 1);
 
-	p=mapmem();
+	p=mapmem(v3d_offset);
 
 	v3d_init();
 

@@ -6,16 +6,13 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
+#include <sys/types.h>
 #include <errno.h>
 #include "pagesize.h"
 
 #ifndef DEVMEM
 #define DEVMEM "/dev/mem"
 #endif /* DEVMEM */
-
-#ifndef V3D_OFFSET
-#define V3D_OFFSET 0x20c00000
-#endif /* V3D_OFFSET */
 
 #ifndef V3D_LENGTH
 #define V3D_LENGTH ((0x00f20-0x00000+0x4))
@@ -26,7 +23,7 @@ static uint32_t *p_orig;
 uint32_t* mapmem();
 void unmapmem();
 
-uint32_t* mapmem()
+uint32_t* mapmem(const off_t V3D_OFFSET)
 {
 	int fd;
 	long pagesize;
