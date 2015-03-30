@@ -1,5 +1,5 @@
 PROG:=qpuinfo
-SRCS:=main.c mapmem.c pagesize.c
+SRCS:=main.c
 ALLDEPS:=
 CFLAGS_LOCAL:=-Wall -Wextra
 LDLIBS_LOCAL:=-lmailbox -lvc4v3d
