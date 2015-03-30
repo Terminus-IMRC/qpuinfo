@@ -416,6 +416,8 @@ int main(int argc, char *argv[])
 	if(flag_reset_v3d)
 		v3d_reset_all(p);
 
+	unmapmem_cpu(p, V3D_LENGTH);
+
 	v3d_utils_finalize();
 	v3d_finalize();
 
