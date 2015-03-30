@@ -1,7 +1,8 @@
 PROG:=qpuinfo
-SRCS:=main.c mapmem.c pagesize.c mailbox/mailbox.c libvc4v3d/v3d.c libvc4v3d/v3d_reset.c libvc4v3d/v3d_rw.c
+SRCS:=main.c mapmem.c pagesize.c
 ALLDEPS:=
-CFLAGS_LOCAL:=-Wall -Wextra -Ilibvc4v3d/
+CFLAGS_LOCAL:=-Wall -Wextra
+LDLIBS_LOCAL:=-lmailbox -lvc4v3d
 CC:=gcc
 RM:=rm -f
 SUDO:=sudo
