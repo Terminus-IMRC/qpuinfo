@@ -1,7 +1,7 @@
 PROG:=qpuinfo
 SRCS:=main.c mapmem.c pagesize.c mailbox/mailbox.c libvc4v3d/v3d.c libvc4v3d/v3d_reset.c libvc4v3d/v3d_rw.c
 ALLDEPS:=
-CFLAGS:=-Wall -Wextra -Ilibvc4v3d/
+CFLAGS_LOCAL:=-Wall -Wextra -Ilibvc4v3d/
 CC:=gcc
 RM:=rm -f
 SUDO:=sudo
@@ -12,8 +12,8 @@ TARGETS_NO_NEED_DEPS:=clean
 OBJS:=$(SRCS:%.c=%.c.o)
 DEPS:=$(SRCS:%.c=%.c.d)
 
-COMPILE.c=$(CC) $(CFLAGS) $(TARGET_ARCH) -c
-COMPILE.d=$(CC) $(CFLAGS) $(TARGET_ARCH) -M -MP -MT $<.o -MF $@
+COMPILE.c=$(CC) $(CFLAGS) $(CFLAGS_LOCAL) $(TARGET_ARCH) -c
+COMPILE.d=$(CC) $(CFLAGS) $(CFLAGS_LOCAL) $(TARGET_ARCH) -M -MP -MT $<.o -MF $@
 LINK.o=$(CC) $(LDFLAGS) $(TARGET_ARCH)
 
 all: $(PROG)
@@ -35,7 +35,7 @@ MAKEFILE_LIST_SANS_DEPS:=$(filter-out %.c.d, $(MAKEFILE_LIST))
 ALLDEPS+=$(MAKEFILE_LIST_SANS_DEPS)
 
 $(PROG): $(OBJS) $(ALLDEPS)
-	$(LINK.o) $(OUTPUT_OPTION) $(OBJS) $(LOADLIBES) $(LDLIBS)
+	$(LINK.o) $(OUTPUT_OPTION) $(OBJS) $(LOADLIBES) $(LDLIBS) $(LDLIBS_LOCAL)
 
 %.c.o: %.c $(ALLDEPS)
 	$(COMPILE.c) $(OUTPUT_OPTION) $<
