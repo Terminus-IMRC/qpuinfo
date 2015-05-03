@@ -4,9 +4,8 @@
 #include <unistd.h>
 #include <inttypes.h>
 #include <sys/types.h>
-#include "mailbox/mailbox.h"
-#include "v3d/v3d.h"
-#include "v3d/v3d_utils.h"
+#include "mailbox.h"
+#include "v3d.h"
 
 static void usage(const char *progname)
 {
