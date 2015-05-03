@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 	v3d_init();
 	v3d_utils_init();
 
-	p=mapmem_cpu(v3d_peripheral_addr(), V3D_LENGTH);
+	p=mapmem_cpu(BUS_TO_PHYS(v3d_peripheral_addr()), V3D_LENGTH);
 
 	printf("[V3D Identification 0 (V3D block identity)]\n");
 	printf("V3D Technology Version: %"PRIu32"\n", v3d_read(p, V3D_TVER));
