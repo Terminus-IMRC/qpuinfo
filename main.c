@@ -48,7 +48,6 @@ int main(int argc, char *argv[])
 		qpu_enable(fd, 1);
 
 	v3d_init();
-	v3d_utils_init();
 
 	p=mapmem_cpu(BUS_TO_PHYS(v3d_peripheral_addr()), V3D_LENGTH);
 
@@ -402,7 +401,6 @@ int main(int argc, char *argv[])
 
 	unmapmem_cpu(p, V3D_LENGTH);
 
-	v3d_utils_finalize();
 	v3d_finalize();
 
 	if(flag_disable_qpu)
