@@ -13,7 +13,6 @@ static void usage(const char *progname)
 		"Usage: %s [-e] [-d] [-r]\n" \
 		"-e to enable QPU at first\n" \
 		"-d to disable at last\n" \
-		"-r to reset V3D registers after printing\n" \
 		, progname);
 }
 
@@ -22,7 +21,7 @@ int main(int argc, char *argv[])
 	int fd;
 	uint32_t *p;
 	int opt;
-	_Bool flag_enable_qpu=0, flag_disable_qpu=0, flag_reset_v3d=0;
+	_Bool flag_enable_qpu=0, flag_disable_qpu=0;
 
 	while((opt=getopt(argc, argv, "edr"))!=-1){
 		switch(opt){
@@ -31,9 +30,6 @@ int main(int argc, char *argv[])
 				break;
 			case 'd':
 				flag_disable_qpu=!0;
-				break;
-			case 'r':
-				flag_reset_v3d=!0;
 				break;
 			default:
 				fprintf(stderr, "error: unknown option: %c\n", opt);
@@ -395,9 +391,6 @@ int main(int argc, char *argv[])
 	printf("VPM Allocator error - binner request greater than limit: %"PRIu32"\n", v3d_read(p, V3D_VPAEBRGL));
 	printf("VPM Allocator error - request too big: %"PRIu32"\n", v3d_read(p, V3D_VPAERGS));
 	printf("VPM Allocator error - allocating base while busy: %"PRIu32"\n", v3d_read(p, V3D_VPAEABB));
-
-	if(flag_reset_v3d)
-		v3d_reset_all(p);
 
 	unmapmem_cpu(p, V3D_LENGTH);
 
