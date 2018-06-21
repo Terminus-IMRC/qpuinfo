@@ -5,7 +5,7 @@
 #include <inttypes.h>
 #include <sys/types.h>
 #include <mailbox.h>
-#include "v3d.h"
+#include <vc4regmap.h>
 
 static void usage(const char * const progname)
 {
@@ -18,9 +18,9 @@ static void usage(const char * const progname)
 int main(int argc, char *argv[])
 {
     int fd;
-    uint32_t *p;
     int opt;
     _Bool flag_enable_qpu = 0, flag_disable_qpu = 0;
+    volatile uint32_t *peri;
     int err;
 
     while ((opt = getopt(argc, argv, "ed")) != -1){
@@ -39,7 +39,6 @@ int main(int argc, char *argv[])
     }
 
     if (flag_enable_qpu || flag_disable_qpu) {
-        fd = mbox_open();
         fd = mailbox_open();
         if (fd == -1) {
             fprintf(stderr, "error: mailbox_open\n");
@@ -50,14 +49,17 @@ int main(int argc, char *argv[])
         err = mailbox_qpu_enable(fd, 1);
         if (err) {
             fprintf(stderr, "error: mailbox_qpu_enable\n");
-            (void) mailbox_close();
+            (void) mailbox_close(fd);
             exit(EXIT_FAILURE);
         }
     }
 
-    v3d_init();
-
-    p = mapmem_cpu(BUS_TO_PHYS(v3d_peripheral_addr()), V3D_LENGTH);
+    peri = vc4regmap_init();
+    if (peri == NULL) {
+        fprintf(stderr, "error: vc4regmap_init\n");
+        (void) mailbox_close(fd);
+        exit(EXIT_FAILURE);
+    }
 
     printf("[V3D Identification 0 (V3D block identity)]\n");
     printf("V3D Technology Version: %"PRIu32"\n", v3d_read(p, V3D_TVER));
@@ -404,9 +406,11 @@ int main(int argc, char *argv[])
     printf("VPM Allocator error - request too big: %"PRIu32"\n", v3d_read(p, V3D_VPAERGS));
     printf("VPM Allocator error - allocating base while busy: %"PRIu32"\n", v3d_read(p, V3D_VPAEABB));
 
-    unmapmem_cpu(p, V3D_LENGTH);
-
-    v3d_finalize();
+    err = vc4regmap_finalize();
+    if (err) {
+        fprintf(stderr, "error: vc4regmap_finalize\n");
+        /* Continue finalization... */
+    }
 
     if (flag_disable_qpu) {
         err = qpu_enable(fd, 0);
