@@ -2,7 +2,7 @@ PROG:=qpuinfo
 SRCS:=main.c
 ALLDEPS:=
 CFLAGS_LOCAL:=-Wall -Wextra
-LDLIBS_LOCAL:=-lmailbox -lvc4v3d
+LDLIBS_LOCAL:=-lmailbox -lvc4regmap -lbcm_host -L/opt/vc/lib
 CC:=gcc
 RM:=rm -f
 SUDO:=sudo
@@ -43,10 +43,6 @@ $(PROG): $(OBJS) $(ALLDEPS)
 
 %.c.d: %.c $(ALLDEPS)
 	$(COMPILE.d) $(OUTPUT_OPTION) $<
-
-.PHONY: run
-run: $(PROG)
-	sudo ./$<
 
 .PHONY: clean
 clean:
