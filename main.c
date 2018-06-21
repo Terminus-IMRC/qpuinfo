@@ -39,6 +39,12 @@ int main(int argc, char *argv[])
                 exit(EXIT_FAILURE);
         }
     }
+    if (optind < argc) {
+        fprintf(stderr, "error: Extra %s specified\n",
+                argc - optind > 1 ? "options" : "option");
+        usage(argv[0]);
+        exit(EXIT_FAILURE);
+    }
 
     if (flag_enable_qpu || flag_disable_qpu) {
         fd = mailbox_open();
