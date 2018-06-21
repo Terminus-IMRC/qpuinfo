@@ -4,13 +4,13 @@
 #include <unistd.h>
 #include <inttypes.h>
 #include <sys/types.h>
-#include "mailbox.h"
+#include <mailbox.h>
 #include "v3d.h"
 
 static void usage(const char * const progname)
 {
     fprintf(stderr,
-            "Usage: %s [-e] [-d] [-r]\n"
+            "Usage: %s [-e] [-d]\n"
             "-e to enable QPU at first\n"
             "-d to disable at last\n" , progname);
 }
@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
     uint32_t *p;
     int opt;
     _Bool flag_enable_qpu = 0, flag_disable_qpu = 0;
+    int err;
 
     while ((opt = getopt(argc, argv, "ed")) != -1){
         switch (opt) {
@@ -37,10 +38,22 @@ int main(int argc, char *argv[])
         }
     }
 
-    if (flag_enable_qpu || flag_disable_qpu)
+    if (flag_enable_qpu || flag_disable_qpu) {
         fd = mbox_open();
-    if (flag_enable_qpu)
-        qpu_enable(fd, 1);
+        fd = mailbox_open();
+        if (fd == -1) {
+            fprintf(stderr, "error: mailbox_open\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+    if (flag_enable_qpu) {
+        err = mailbox_qpu_enable(fd, 1);
+        if (err) {
+            fprintf(stderr, "error: mailbox_qpu_enable\n");
+            (void) mailbox_close();
+            exit(EXIT_FAILURE);
+        }
+    }
 
     v3d_init();
 
@@ -395,10 +408,19 @@ int main(int argc, char *argv[])
 
     v3d_finalize();
 
-    if (flag_disable_qpu)
-        qpu_enable(fd, 0);
-    if (flag_enable_qpu || flag_disable_qpu)
-        mbox_close(fd);
+    if (flag_disable_qpu) {
+        err = qpu_enable(fd, 0);
+        if (err) {
+            fprintf(stderr, "error: qpu_enable\n");
+            (void) mailbox_close(fd);
+            exit(EXIT_FAILURE);
+        }
+    }
+    if (flag_enable_qpu || flag_disable_qpu) {
+        err = mailbox_close(fd);
+        fprintf(stderr, "error: mailbox_close\n");
+        exit(EXIT_FAILURE);
+    }
 
     return 0;
 }
