@@ -10,9 +10,12 @@
 static void usage(const char * const progname)
 {
     fprintf(stderr,
-            "Usage: %s [-e] [-d]\n"
+            "Usage: %s [-e] [-d] [-w] [-u]\n"
             "-e to enable QPU at first\n"
-            "-d to disable at last\n" , progname);
+            "-d to disable at last\n"
+            "-w to print write-only registers\n"
+            "-u to print registers which names are not known\n",
+            progname);
 }
 
 int main(int argc, char *argv[])
