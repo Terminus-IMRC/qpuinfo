@@ -1,3 +1,5 @@
+src/qpuinfo
+
 qpuinfo-*.*.*-*.deb
 
 CPackConfig.cmake
