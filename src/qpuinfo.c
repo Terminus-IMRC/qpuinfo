@@ -20,18 +20,21 @@ int main(int argc, char *argv[])
     int i;
     int fd = -1;
     int opt;
-    _Bool flag_enable_qpu = 0, flag_disable_qpu = 0;
+    _Bool flag_enable_qpu = 0, flag_disable_qpu = 0, print_unknown = 0;
     volatile uint32_t *peri;
     uint32_t v;
     int err;
 
-    while ((opt = getopt(argc, argv, "ed")) != -1){
+    while ((opt = getopt(argc, argv, "edu")) != -1){
         switch (opt) {
             case 'e':
                 flag_enable_qpu = !0;
                 break;
             case 'd':
                 flag_disable_qpu = !0;
+                break;
+            case 'u':
+                print_unknown = !0;
                 break;
             default:
                 fprintf(stderr, "error: unknown option: %c\n", opt);
@@ -102,6 +105,12 @@ int main(int argc, char *argv[])
     printf("VRI Memory Size: %"PRIu32"\n", B(3,0));
     printf("\n");
 
+    if (print_unknown) {
+        v = peri[V3D_IDENT3];
+        printf("[IDENT3]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
     v = peri[V3D_SCRATCH];
     printf("[Scratch Register]: 0x%08"PRIx32"\n", v);
     printf("Scratch Register: 0x%08"PRIx32"\n", B(31,0));
@@ -110,6 +119,10 @@ int main(int argc, char *argv[])
     v = peri[V3D_L2CACTL];
     printf("[L2 Cache Control]: 0x%08"PRIx32"\n", v);
     printf("L2 Cache Enable: %"PRIu32"\n", B(0,0));
+    printf("\n");
+
+    v = peri[V3D_SLCACTL];
+    printf("[Slices Cache Control]: 0x%08"PRIx32"\n", v);
     printf("\n");
 
     v = peri[V3D_INTCTL];
@@ -283,6 +296,18 @@ int main(int argc, char *argv[])
     printf("Vertex Shader Scheduling Bypass Limit: %"PRIu32"\n", B(1,0));
     printf("\n");
 
+    if (print_unknown) {
+        v = peri[V3D_SQCSTAT];
+        printf("[SQCSTAT]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_SRQPC];
+        printf("[SRQPC]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
     v = peri[V3D_SRQUA];
     printf("[QPU User Program Request Uniforms Address]: 0x%08"PRIx32"\n", v);
     printf("Uniforms Address: 0x%08"PRIx32"\n", B(31,0));
@@ -316,6 +341,10 @@ int main(int argc, char *argv[])
     printf("VPM memory reserved for user programs: %"PRIu32"\n", B(4,0));
     printf("\n");
 
+    v = peri[V3D_PCTRC];
+    printf("[Performance Counter Clear]: 0x%08"PRIx32"\n", v);
+    printf("\n");
+
     v = peri[V3D_PCTRE];
     printf("[Performance Counter Enables]: 0x%08"PRIx32"\n", v);
     printf("Performance Counter Enable Bits: 0x%04"PRIx32"\n", B(15,0));
@@ -344,6 +373,102 @@ int main(int argc, char *argv[])
         v = peri[pctrs];
         printf("[Performance Counter Mapping (n=%2d)]: 0x%08"PRIx32"\n", i, v);
         printf("Performance Counter Device Id (n=%2d): %"PRIu32"\n", i, B(4,0));
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBCFG];
+        printf("[DBCFG]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBSCS];
+        printf("[DBSCS]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBSCFG];
+        printf("[DBSCFG]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBSSR];
+        printf("[DBSSR]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBSDR0];
+        printf("[DBSDR0]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBSDR1];
+        printf("[DBSDR1]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBSDR2];
+        printf("[DBSDR2]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBSDR3];
+        printf("[DBSDR3]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBQRUN];
+        printf("[DBQRUN]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBQHLT];
+        printf("[DBQHLT]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBQSTP];
+        printf("[DBQSTP]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBQITE];
+        printf("[DBQITE]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBQITC];
+        printf("[DBQITC]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBQGHC];
+        printf("[DBQGHC]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBQGHG];
+        printf("[DBQGHG]: 0x%08"PRIx32"\n", v);
+        printf("\n");
+    }
+
+    if (print_unknown) {
+        v = peri[V3D_DBQGHH];
+        printf("[DBQGHH]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
