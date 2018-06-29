@@ -20,18 +20,22 @@ int main(int argc, char *argv[])
     int i;
     int fd = -1;
     int opt;
-    _Bool flag_enable_qpu = 0, flag_disable_qpu = 0, print_unknown = 0;
+    _Bool flag_enable_qpu = 0, flag_disable_qpu = 0;
+    _Bool print_writeonly = 0, print_unknown = 0;
     volatile uint32_t *peri;
     uint32_t v;
     int err;
 
-    while ((opt = getopt(argc, argv, "edu")) != -1){
+    while ((opt = getopt(argc, argv, "edwu")) != -1){
         switch (opt) {
             case 'e':
                 flag_enable_qpu = !0;
                 break;
             case 'd':
                 flag_disable_qpu = !0;
+                break;
+            case 'w':
+                print_writeonly = !0;
                 break;
             case 'u':
                 print_unknown = !0;
@@ -118,11 +122,23 @@ int main(int argc, char *argv[])
 
     v = peri[V3D_L2CACTL];
     printf("[L2 Cache Control]: 0x%08"PRIx32"\n", v);
+    if (print_writeonly)
+        printf("L2 Cache Clear: %"PRIu32"\n", B(2,2));
+    if (print_writeonly)
+        printf("L2 Cache Disable: %"PRIu32"\n", B(1,1));
     printf("L2 Cache Enable: %"PRIu32"\n", B(0,0));
     printf("\n");
 
     v = peri[V3D_SLCACTL];
     printf("[Slices Cache Control]: 0x%08"PRIx32"\n", v);
+    if (print_writeonly)
+        printf("TMU1 Cache Clear Bits: 0x%"PRIx32"\n", B(27,24));
+    if (print_writeonly)
+        printf("TMU0 Cache Clear Bits: 0x%"PRIx32"\n", B(19,16));
+    if (print_writeonly)
+        printf("Uniforms Cache Clear Bits: 0x%"PRIx32"\n", B(11,8));
+    if (print_writeonly)
+        printf("Instruction Cache Clear Bits: 0x%"PRIx32"\n", B(3,0));
     printf("\n");
 
     v = peri[V3D_INTCTL];
@@ -151,6 +167,8 @@ int main(int argc, char *argv[])
 
     v = peri[V3D_CT0CS];
     printf("[Control List Executor Thread 0 Control and Status]: 0x%08"PRIx32"\n", v);
+    if (print_writeonly)
+        printf("Reset bit: %"PRIu32"\n", B(15,15));
     printf("Counting Semaphore: %"PRIu32"\n", B(14,12));
     printf("Return Stack Depth: %"PRIu32"\n", B(9,8));
     printf("Control Thread Run: %"PRIu32"\n", B(5,5));
@@ -161,6 +179,8 @@ int main(int argc, char *argv[])
 
     v = peri[V3D_CT1CS];
     printf("[Control List Executor Thread 1 Control and Status]: 0x%08"PRIx32"\n", v);
+    if (print_writeonly)
+        printf("Reset bit: %"PRIu32"\n", B(15,15));
     printf("Counting Semaphore: %"PRIu32"\n", B(14,12));
     printf("Return Stack Depth: %"PRIu32"\n", B(9,8));
     printf("Control Thread Run: %"PRIu32"\n", B(5,5));
@@ -302,11 +322,11 @@ int main(int argc, char *argv[])
         printf("\n");
     }
 
-    if (print_unknown) {
-        v = peri[V3D_SRQPC];
-        printf("[SRQPC]: 0x%08"PRIx32"\n", v);
-        printf("\n");
-    }
+    v = peri[V3D_SRQPC];
+    printf("[QPU User Program Request Programm Adress]: 0x%08"PRIx32"\n", v);
+    if (print_writeonly)
+        printf("Program Address: 0x%08"PRIx32"\n", B(31,0));
+    printf("\n");
 
     v = peri[V3D_SRQUA];
     printf("[QPU User Program Request Uniforms Address]: 0x%08"PRIx32"\n", v);
@@ -343,6 +363,8 @@ int main(int argc, char *argv[])
 
     v = peri[V3D_PCTRC];
     printf("[Performance Counter Clear]: 0x%08"PRIx32"\n", v);
+    if (print_writeonly)
+        printf("Performance Counter Clear Bits: 0x%02"PRIx32"\n", B(15,0));
     printf("\n");
 
     v = peri[V3D_PCTRE];
