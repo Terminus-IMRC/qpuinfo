@@ -18,7 +18,7 @@ static void usage(const char * const progname)
 int main(int argc, char *argv[])
 {
     int i;
-    int fd;
+    int fd = -1;
     int opt;
     _Bool flag_enable_qpu = 0, flag_disable_qpu = 0;
     volatile uint32_t *peri;
