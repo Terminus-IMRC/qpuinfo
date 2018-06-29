@@ -78,13 +78,13 @@ int main(int argc, char *argv[])
     /* Ident, not Idein. */
 
     v = peri[V3D_IDENT0];
-    printf("[V3D Identification 0 (V3D block identity)]\n");
+    printf("[V3D Identification 0 (V3D block identity)]: 0x%08"PRIx32"\n", v);
     printf("V3D Technology Version: %"PRIu32"\n", B(31, 24));
     printf("V3D Id String: %c%c%c\n", B(7,0), B(15,8), B(23,16));
     printf("\n");
 
     v = peri[V3D_IDENT1];
-    printf("[V3D Identification 1 (V3D Configuration A)]\n");
+    printf("[V3D Identification 1 (V3D Configuration A)]: 0x%08"PRIx32"\n", v);
     printf("VPM Memory Size: %"PRIu32"\n", B(31,28));
     printf("HDR Support: %"PRIu32"\n", B(27,24));
     printf("Number of Semaphores: %"PRIu32"\n", B(23,16));
@@ -96,24 +96,24 @@ int main(int argc, char *argv[])
 
     v = peri[V3D_IDENT2];
     /* This should be 2? */
-    printf("[V3D Identification 1 (V3D Configuration B)]\n");
+    printf("[V3D Identification 1 (V3D Configuration B)]: 0x%08"PRIx32"\n", v);
     printf("Tile Buffer Double-buffer Mode Support: %"PRIu32"\n", B(11,8));
     printf("Tile Buffer Size: %"PRIu32"\n", B(7,4));
     printf("VRI Memory Size: %"PRIu32"\n", B(3,0));
     printf("\n");
 
     v = peri[V3D_SCRATCH];
-    printf("[Scratch Register]\n");
+    printf("[Scratch Register]: 0x%08"PRIx32"\n", v);
     printf("Scratch Register: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_L2CACTL];
-    printf("[L2 Cache Control]\n");
+    printf("[L2 Cache Control]: 0x%08"PRIx32"\n", v);
     printf("L2 Cache Enable: %"PRIu32"\n", B(0,0));
     printf("\n");
 
     v = peri[V3D_INTCTL];
-    printf("[Interrupt Control]\n");
+    printf("[Interrupt Control]: 0x%08"PRIx32"\n", v);
     printf("Binner Used Overspill Memory intterrupt status: %"PRIu32"\n", B(3,3));
     printf("Binner Out of Memory intterrupt status: %"PRIu32"\n", B(2,2));
     printf("Binning Mode Flush Done intterrupt status: %"PRIu32"\n", B(1,1));
@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_INTENA];
-    printf("[Interrupt Enables]\n");
+    printf("[Interrupt Enables]: 0x%08"PRIx32"\n", v);
     printf("Binner Used Overspill Memory intterrupt enable: %"PRIu32"\n", B(3,3));
     printf("Binner Out of Memory intterrupt enable: %"PRIu32"\n", B(2,2));
     printf("Binning Mode Flush Done intterrupt enable: %"PRIu32"\n", B(1,1));
@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_INTDIS];
-    printf("[Interrupt Disables]\n");
+    printf("[Interrupt Disables]: 0x%08"PRIx32"\n", v);
     printf("Binner Used Overspill Memory intterrupt disable: %"PRIu32"\n", B(3,3));
     printf("Binner Out of Memory intterrupt disable: %"PRIu32"\n", B(2,2));
     printf("Binning Mode Flush Done intterrupt disable: %"PRIu32"\n", B(1,1));
@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_CT0CS];
-    printf("[Control List Executor Thread 0 Control and Status]\n");
+    printf("[Control List Executor Thread 0 Control and Status]: 0x%08"PRIx32"\n", v);
     printf("Counting Semaphore: %"PRIu32"\n", B(14,12));
     printf("Return Stack Depth: %"PRIu32"\n", B(9,8));
     printf("Control Thread Run: %"PRIu32"\n", B(5,5));
@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_CT1CS];
-    printf("[Control List Executor Thread 1 Control and Status]\n");
+    printf("[Control List Executor Thread 1 Control and Status]: 0x%08"PRIx32"\n", v);
     printf("Counting Semaphore: %"PRIu32"\n", B(14,12));
     printf("Return Stack Depth: %"PRIu32"\n", B(9,8));
     printf("Control Thread Run: %"PRIu32"\n", B(5,5));
@@ -157,59 +157,59 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_CT0EA];
-    printf("[Control List Executor Thread 0 End Address]\n");
+    printf("[Control List Executor Thread 0 End Address]: 0x%08"PRIx32"\n", v);
     printf("Control List End Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_CT1EA];
-    printf("[Control List Executor Thread 1 End Address]\n");
+    printf("[Control List Executor Thread 1 End Address]: 0x%08"PRIx32"\n", v);
     printf("Control List End Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_CT0CA];
-    printf("[Control List Executor Thread 0 Current Address]\n");
+    printf("[Control List Executor Thread 0 Current Address]: 0x%08"PRIx32"\n", v);
     printf("Control List Current Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_CT1CA];
-    printf("[Control List Executor Thread 1 Current Address]\n");
+    printf("[Control List Executor Thread 1 Current Address]: 0x%08"PRIx32"\n", v);
     printf("Control List Current Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_CT00RA0];
-    printf("[Control List Executor Thread 0 Return Address 0]\n");
+    printf("[Control List Executor Thread 0 Return Address 0]: 0x%08"PRIx32"\n", v);
     printf("Control List Return Address 0: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_CT01RA0];
-    printf("[Control List Executor Thread 1 Return Address 0]\n");
+    printf("[Control List Executor Thread 1 Return Address 0]: 0x%08"PRIx32"\n", v);
     printf("Control List Return Address 0: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_CT0LC];
-    printf("[Control List Executor Thread 0 List Counter]\n");
+    printf("[Control List Executor Thread 0 List Counter]: 0x%08"PRIx32"\n", v);
     printf("Major List Counter: %"PRIu32"\n", B(31,16));
     printf("Sub-list Counter: %"PRIu32"\n", B(15,0));
     printf("\n");
 
     v = peri[V3D_CT1LC];
-    printf("[Control List Executor Thread 1 List Counter]\n");
+    printf("[Control List Executor Thread 1 List Counter]: 0x%08"PRIx32"\n", v);
     printf("Major List Counter: %"PRIu32"\n", B(31,16));
     printf("Sub-list Counter: %"PRIu32"\n", B(15,0));
     printf("\n");
 
     v = peri[V3D_CT0PC];
-    printf("[Control List Executor Thread 0 Primitive List Counter]\n");
+    printf("[Control List Executor Thread 0 Primitive List Counter]: 0x%08"PRIx32"\n", v);
     printf("Primitive List Counter: %"PRIu32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_CT0PC];
-    printf("[Control List Executor Thread 1 Primitive List Counter]\n");
+    printf("[Control List Executor Thread 1 Primitive List Counter]: 0x%08"PRIx32"\n", v);
     printf("Primitive List Counter: %"PRIu32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_PCS];
-    printf("[V3D Pipeline Control and Status]\n");
+    printf("[V3D Pipeline Control and Status]: 0x%08"PRIx32"\n", v);
     printf("Binning Mode Out Of Memory: %"PRIu32"\n", B(8,8));
     printf("Rendering Mode Busy: %"PRIu32"\n", B(3,3));
     printf("Rendering Mode Active: %"PRIu32"\n", B(2,2));
@@ -218,43 +218,43 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_BFC];
-    printf("[Binning Mode Flush Count]\n");
+    printf("[Binning Mode Flush Count]: 0x%08"PRIx32"\n", v);
     printf("Flush Count: %"PRIu32"\n", B(7,0));
     printf("\n");
 
     v = peri[V3D_RFC];
-    printf("[Rendering Mode Frame Count]\n");
+    printf("[Rendering Mode Frame Count]: 0x%08"PRIx32"\n", v);
     printf("Frame Count: %"PRIu32"\n", B(7,0));
     printf("\n");
 
     v = peri[V3D_BPCA];
-    printf("[Current Address of Binning Memory Pool]\n");
+    printf("[Current Address of Binning Memory Pool]: 0x%08"PRIx32"\n", v);
     printf("Current Pool Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_BPCS];
-    printf("[Remaining Size of Binning Memory Pool]\n");
+    printf("[Remaining Size of Binning Memory Pool]: 0x%08"PRIx32"\n", v);
     printf("Size of Pool Remaining: %"PRIu32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_BPOA];
-    printf("[Address of Overspill Binning Memory Block]\n");
+    printf("[Address of Overspill Binning Memory Block]: 0x%08"PRIx32"\n", v);
     printf("Address of Overspill Memory Block for Binning: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_BPOS];
-    printf("[Size of Overspill Binning Memory Block]\n");
+    printf("[Size of Overspill Binning Memory Block]: 0x%08"PRIx32"\n", v);
     printf("Size of Overspill Memory Block for Binning: %"PRIu32"\n", B(31, 0));
     printf("\n");
 
     v = peri[V3D_BXCF];
-    printf("[Binner Debug]\n");
+    printf("[Binner Debug]: 0x%08"PRIx32"\n", v);
     printf("Disable Clipping: %"PRIu32"\n", B(1,1));
     printf("Disable Forwarding in State Cache: %"PRIu32"\n", B(0,0));
     printf("\n");
 
     v = peri[V3D_SQRSV0];
-    printf("[Reserve QPUs 0-7]\n");
+    printf("[Reserve QPUs 0-7]: 0x%08"PRIx32"\n", v);
     printf("Reservation settings for QPU  0: 0x%1"PRIx32"\n", B(3,0));
     printf("Reservation settings for QPU  1: 0x%1"PRIx32"\n", B(7,4));
     printf("Reservation settings for QPU  2: 0x%1"PRIx32"\n", B(11,8));
@@ -266,7 +266,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_SQRSV1];
-    printf("[Reserve QPUs 8-15]\n");
+    printf("[Reserve QPUs 8-15]: 0x%08"PRIx32"\n", v);
     printf("Reservation settings for QPU  8: 0x%1"PRIx32"\n", B(3,0));
     printf("Reservation settings for QPU  9: 0x%1"PRIx32"\n", B(7,4));
     printf("Reservation settings for QPU 10: 0x%1"PRIx32"\n", B(11,8));
@@ -278,23 +278,23 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_SQCNTL];
-    printf("[QPU Scheduler Control]\n");
+    printf("[QPU Scheduler Control]: 0x%08"PRIx32"\n", v);
     printf("Coordinate Shader Scheduling Bypass Limit: %"PRIu32"\n", B(3,2));
     printf("Vertex Shader Scheduling Bypass Limit: %"PRIu32"\n", B(1,0));
     printf("\n");
 
     v = peri[V3D_SRQUA];
-    printf("[QPU User Program Request Uniforms Address]\n");
+    printf("[QPU User Program Request Uniforms Address]: 0x%08"PRIx32"\n", v);
     printf("Uniforms Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
     v = peri[V3D_SRQUL];
-    printf("[QPU User Program Request Uniforms Length]\n");
+    printf("[QPU User Program Request Uniforms Length]: 0x%08"PRIx32"\n", v);
     printf("Uniforms Length: %"PRIu32"\n", B(11,0));
     printf("\n");
 
     v = peri[V3D_SRQCS];
-    printf("[QPU User Program Request Control and Status]\n");
+    printf("[QPU User Program Request Control and Status]: 0x%08"PRIx32"\n", v);
     printf("Count of user programs completed: %"PRIu32"\n", B(23,16));
     printf("Count of user programs requests made: %"PRIu32"\n", B(15,8));
     printf("Queue Error: %"PRIu32"\n", B(7,7));
@@ -302,7 +302,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_VPACNTL];
-    printf("[VPM Allocator Control]\n");
+    printf("[VPM Allocator Control]: 0x%08"PRIx32"\n", v);
     printf("Enable VPM allocation timeout: %"PRIu32"\n", B(13,13));
     printf("Enable VPM allocation limits: %"PRIu32"\n", B(12,12));
     printf("Binning VPM allocation timeout %"PRIu32"\n", B(11,9));
@@ -312,12 +312,12 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_VPMBASE];
-    printf("[VPM base (user) memory reservation]\n");
+    printf("[VPM base (user) memory reservation]: 0x%08"PRIx32"\n", v);
     printf("VPM memory reserved for user programs: %"PRIu32"\n", B(4,0));
     printf("\n");
 
     v = peri[V3D_PCTRE];
-    printf("[Performance Counter Enables]\n");
+    printf("[Performance Counter Enables]: 0x%08"PRIx32"\n", v);
     printf("Performance Counter Enable Bits: 0x%04"PRIx32"\n", B(15,0));
     printf("\n");
 
@@ -337,18 +337,18 @@ int main(int argc, char *argv[])
         const unsigned pctr = pctr_list[i], pctrs = pctrs_list[i];
 
         v = peri[pctr];
-        printf("[Performance Counts (n=%2d)]\n", i);
+        printf("[Performance Counts (n=%2d)]: 0x%08"PRIx32"\n", i, v);
         printf("Performance Count (n=%2d): %"PRIu32"\n", i, B(31,0));
         printf("\n");
 
         v = peri[pctrs];
-        printf("[Performance Counter Mapping (n=%2d)]\n", i);
+        printf("[Performance Counter Mapping (n=%2d)]: 0x%08"PRIx32"\n", i, v);
         printf("Performance Counter Device Id (n=%2d): %"PRIu32"\n", i, B(4,0));
         printf("\n");
     }
 
     v = peri[V3D_DBGE];
-    printf("[PSE Error Signals]\n");
+    printf("[PSE Error Signals]: 0x%08"PRIx32"\n", v);
     printf("IPD2_FPDUSED: %"PRIu32"\n", B(20,20));
     printf("IPD2_VALID: %"PRIu32"\n", B(19,19));
     printf("MULIP2: %"PRIu32"\n", B(18,18));
@@ -359,7 +359,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_FDBG0];
-    printf("[FEP Overrun Error Signals]\n");
+    printf("[FEP Overrun Error Signals]: 0x%08"PRIx32"\n", v);
     printf("EZREQ_FIFO_ORUN: %"PRIu32"\n", B(17,17));
     printf("EZVAL_FIFO_ORUN: %"PRIu32"\n", B(15,15));
     printf("DEPTHO_ORUN: %"PRIu32"\n", B(14,14));
@@ -377,7 +377,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_FDBGB];
-    printf("[FEP Interface Ready and Stall Signals, plus FEP Busy Signals]\n");
+    printf("[FEP Interface Ready and Stall Signals, plus FEP Busy Signals]: 0x%08"PRIx32"\n", v);
     printf("XYFO_FIFO_OP_READY: %"PRIu32"\n", B(28,28));
     printf("QXYF_FIFO_OP_READY: %"PRIu32"\n", B(27,27));
     printf("RAST_BUSY: %"PRIu32"\n", B(26,26));
@@ -392,7 +392,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_FDBGR];
-    printf("[FEP Internal Ready Signals]\n");
+    printf("[FEP Internal Ready Signals]: 0x%08"PRIx32"\n", v);
     printf("FIXZ_READY: %"PRIu32"\n", B(30,30));
     printf("RECIPW_READY: %"PRIu32"\n", B(28,28));
     printf("INTERPRW_READY: %"PRIu32"\n", B(27,27));
@@ -419,7 +419,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_FDBGS];
-    printf("[FEP Internal Stall Input Signals]\n");
+    printf("[FEP Internal Stall Input Signals]: 0x%08"PRIx32"\n", v);
     printf("ZO_FIFO_IP_STALL: %"PRIu32"\n", B(28,28));
     printf("RECIPW_IP_STALL: %"PRIu32"\n", B(25,25));
     printf("INTERPW_IP_STALL: %"PRIu32"\n", B(22,22));
@@ -445,7 +445,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     v = peri[V3D_ERRSTAT];
-    printf("[Miscellaneous Error Signals (VPM, VDW, VCD, VCM, L2C)]\n");
+    printf("[Miscellaneous Error Signals (VPM, VDW, VCD, VCM, L2C)]: 0x%08"PRIx32"\n", v);
     printf("L2C AXI Receive Fifo Overrun error: %"PRIu32"\n", B(15,15));
     printf("VCM error (binner): %"PRIu32"\n", B(14,14));
     printf("VCM error (renderer): %"PRIu32"\n", B(13,13));
