@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
     int opt;
     _Bool flag_enable_qpu = 0, flag_disable_qpu = 0;
     _Bool print_writeonly = 0, print_unknown = 0;
-    volatile uint32_t *peri;
     uint32_t v;
     int err;
 
@@ -72,28 +71,27 @@ int main(int argc, char *argv[])
         }
     }
 
-    peri = vc4regmap_init();
-    if (peri == NULL) {
+    if (vc4regmap_init() == NULL) {
         fprintf(stderr, "error: vc4regmap_init\n");
         if (flag_enable_qpu || flag_disable_qpu)
             (void) mailbox_close(fd);
         exit(EXIT_FAILURE);
     }
 
-    printf("QPU is %s\n", is_qpu_enabled(peri) ? "enabled" : "disabled");
+    printf("QPU is %s\n", is_qpu_enabled() ? "enabled" : "disabled");
     printf("\n");
 
 #define B(msb, lsb) ((uint32_t) ((v >> (lsb)) & ((((uint64_t) 1) << ((msb) - (lsb) + 1)) - 1)))
 
     /* Ident, not Idein. */
 
-    v = peri[V3D_IDENT0];
+    v = vc4regmap_read(V3D_IDENT0);
     printf("[V3D Identification 0 (V3D block identity)]: 0x%08"PRIx32"\n", v);
     printf("V3D Technology Version: %"PRIu32"\n", B(31, 24));
     printf("V3D Id String: %c%c%c\n", B(7,0), B(15,8), B(23,16));
     printf("\n");
 
-    v = peri[V3D_IDENT1];
+    v = vc4regmap_read(V3D_IDENT1);
     printf("[V3D Identification 1 (V3D Configuration A)]: 0x%08"PRIx32"\n", v);
     printf("VPM Memory Size: %"PRIu32"\n", B(31,28));
     printf("HDR Support: %"PRIu32"\n", B(27,24));
@@ -104,7 +102,7 @@ int main(int argc, char *argv[])
     printf("V3D Revision: %"PRIu32"\n", B(3,0));
     printf("\n");
 
-    v = peri[V3D_IDENT2];
+    v = vc4regmap_read(V3D_IDENT2);
     /* This should be 2? */
     printf("[V3D Identification 1 (V3D Configuration B)]: 0x%08"PRIx32"\n", v);
     printf("Tile Buffer Double-buffer Mode Support: %"PRIu32"\n", B(11,8));
@@ -113,17 +111,17 @@ int main(int argc, char *argv[])
     printf("\n");
 
     if (print_unknown) {
-        v = peri[V3D_IDENT3];
+        v = vc4regmap_read(V3D_IDENT3);
         printf("[IDENT3]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
-    v = peri[V3D_SCRATCH];
+    v = vc4regmap_read(V3D_SCRATCH);
     printf("[Scratch Register]: 0x%08"PRIx32"\n", v);
     printf("Scratch Register: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_L2CACTL];
+    v = vc4regmap_read(V3D_L2CACTL);
     printf("[L2 Cache Control]: 0x%08"PRIx32"\n", v);
     if (print_writeonly)
         printf("L2 Cache Clear: %"PRIu32"\n", B(2,2));
@@ -132,7 +130,7 @@ int main(int argc, char *argv[])
     printf("L2 Cache Enable: %"PRIu32"\n", B(0,0));
     printf("\n");
 
-    v = peri[V3D_SLCACTL];
+    v = vc4regmap_read(V3D_SLCACTL);
     printf("[Slices Cache Control]: 0x%08"PRIx32"\n", v);
     if (print_writeonly)
         printf("TMU1 Cache Clear Bits: 0x%"PRIx32"\n", B(27,24));
@@ -144,7 +142,7 @@ int main(int argc, char *argv[])
         printf("Instruction Cache Clear Bits: 0x%"PRIx32"\n", B(3,0));
     printf("\n");
 
-    v = peri[V3D_INTCTL];
+    v = vc4regmap_read(V3D_INTCTL);
     printf("[Interrupt Control]: 0x%08"PRIx32"\n", v);
     printf("Binner Used Overspill Memory intterrupt status: %"PRIu32"\n", B(3,3));
     printf("Binner Out of Memory intterrupt status: %"PRIu32"\n", B(2,2));
@@ -152,7 +150,7 @@ int main(int argc, char *argv[])
     printf("Render Mode Frame Done interrupt status: %"PRIu32"\n", B(0,0));
     printf("\n");
 
-    v = peri[V3D_INTENA];
+    v = vc4regmap_read(V3D_INTENA);
     printf("[Interrupt Enables]: 0x%08"PRIx32"\n", v);
     printf("Binner Used Overspill Memory intterrupt enable: %"PRIu32"\n", B(3,3));
     printf("Binner Out of Memory intterrupt enable: %"PRIu32"\n", B(2,2));
@@ -160,7 +158,7 @@ int main(int argc, char *argv[])
     printf("Render Mode Frame Done interrupt enable: %"PRIu32"\n", B(0,0));
     printf("\n");
 
-    v = peri[V3D_INTDIS];
+    v = vc4regmap_read(V3D_INTDIS);
     printf("[Interrupt Disables]: 0x%08"PRIx32"\n", v);
     printf("Binner Used Overspill Memory intterrupt disable: %"PRIu32"\n", B(3,3));
     printf("Binner Out of Memory intterrupt disable: %"PRIu32"\n", B(2,2));
@@ -168,7 +166,7 @@ int main(int argc, char *argv[])
     printf("Render Mode Frame Done interrupt disable: %"PRIu32"\n", B(0,0));
     printf("\n");
 
-    v = peri[V3D_CT0CS];
+    v = vc4regmap_read(V3D_CT0CS);
     printf("[Control List Executor Thread 0 Control and Status]: 0x%08"PRIx32"\n", v);
     if (print_writeonly)
         printf("Reset bit: %"PRIu32"\n", B(15,15));
@@ -180,7 +178,7 @@ int main(int argc, char *argv[])
     printf("Control Thread Mode (binning mode thread only): %"PRIu32"\n", B(0,0));
     printf("\n");
 
-    v = peri[V3D_CT1CS];
+    v = vc4regmap_read(V3D_CT1CS);
     printf("[Control List Executor Thread 1 Control and Status]: 0x%08"PRIx32"\n", v);
     if (print_writeonly)
         printf("Reset bit: %"PRIu32"\n", B(15,15));
@@ -192,59 +190,59 @@ int main(int argc, char *argv[])
     printf("Control Thread Mode (binning mode thread only): %"PRIu32"\n", B(0,0));
     printf("\n");
 
-    v = peri[V3D_CT0EA];
+    v = vc4regmap_read(V3D_CT0EA);
     printf("[Control List Executor Thread 0 End Address]: 0x%08"PRIx32"\n", v);
     printf("Control List End Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_CT1EA];
+    v = vc4regmap_read(V3D_CT1EA);
     printf("[Control List Executor Thread 1 End Address]: 0x%08"PRIx32"\n", v);
     printf("Control List End Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_CT0CA];
+    v = vc4regmap_read(V3D_CT0CA);
     printf("[Control List Executor Thread 0 Current Address]: 0x%08"PRIx32"\n", v);
     printf("Control List Current Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_CT1CA];
+    v = vc4regmap_read(V3D_CT1CA);
     printf("[Control List Executor Thread 1 Current Address]: 0x%08"PRIx32"\n", v);
     printf("Control List Current Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_CT00RA0];
+    v = vc4regmap_read(V3D_CT00RA0);
     printf("[Control List Executor Thread 0 Return Address 0]: 0x%08"PRIx32"\n", v);
     printf("Control List Return Address 0: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_CT01RA0];
+    v = vc4regmap_read(V3D_CT01RA0);
     printf("[Control List Executor Thread 1 Return Address 0]: 0x%08"PRIx32"\n", v);
     printf("Control List Return Address 0: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_CT0LC];
+    v = vc4regmap_read(V3D_CT0LC);
     printf("[Control List Executor Thread 0 List Counter]: 0x%08"PRIx32"\n", v);
     printf("Major List Counter: %"PRIu32"\n", B(31,16));
     printf("Sub-list Counter: %"PRIu32"\n", B(15,0));
     printf("\n");
 
-    v = peri[V3D_CT1LC];
+    v = vc4regmap_read(V3D_CT1LC);
     printf("[Control List Executor Thread 1 List Counter]: 0x%08"PRIx32"\n", v);
     printf("Major List Counter: %"PRIu32"\n", B(31,16));
     printf("Sub-list Counter: %"PRIu32"\n", B(15,0));
     printf("\n");
 
-    v = peri[V3D_CT0PC];
+    v = vc4regmap_read(V3D_CT0PC);
     printf("[Control List Executor Thread 0 Primitive List Counter]: 0x%08"PRIx32"\n", v);
     printf("Primitive List Counter: %"PRIu32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_CT0PC];
+    v = vc4regmap_read(V3D_CT0PC);
     printf("[Control List Executor Thread 1 Primitive List Counter]: 0x%08"PRIx32"\n", v);
     printf("Primitive List Counter: %"PRIu32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_PCS];
+    v = vc4regmap_read(V3D_PCS);
     printf("[V3D Pipeline Control and Status]: 0x%08"PRIx32"\n", v);
     printf("Binning Mode Out Of Memory: %"PRIu32"\n", B(8,8));
     printf("Rendering Mode Busy: %"PRIu32"\n", B(3,3));
@@ -253,43 +251,43 @@ int main(int argc, char *argv[])
     printf("Binning Mode Active: %"PRIu32"\n", B(0,0));
     printf("\n");
 
-    v = peri[V3D_BFC];
+    v = vc4regmap_read(V3D_BFC);
     printf("[Binning Mode Flush Count]: 0x%08"PRIx32"\n", v);
     printf("Flush Count: %"PRIu32"\n", B(7,0));
     printf("\n");
 
-    v = peri[V3D_RFC];
+    v = vc4regmap_read(V3D_RFC);
     printf("[Rendering Mode Frame Count]: 0x%08"PRIx32"\n", v);
     printf("Frame Count: %"PRIu32"\n", B(7,0));
     printf("\n");
 
-    v = peri[V3D_BPCA];
+    v = vc4regmap_read(V3D_BPCA);
     printf("[Current Address of Binning Memory Pool]: 0x%08"PRIx32"\n", v);
     printf("Current Pool Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_BPCS];
+    v = vc4regmap_read(V3D_BPCS);
     printf("[Remaining Size of Binning Memory Pool]: 0x%08"PRIx32"\n", v);
     printf("Size of Pool Remaining: %"PRIu32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_BPOA];
+    v = vc4regmap_read(V3D_BPOA);
     printf("[Address of Overspill Binning Memory Block]: 0x%08"PRIx32"\n", v);
     printf("Address of Overspill Memory Block for Binning: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_BPOS];
+    v = vc4regmap_read(V3D_BPOS);
     printf("[Size of Overspill Binning Memory Block]: 0x%08"PRIx32"\n", v);
     printf("Size of Overspill Memory Block for Binning: %"PRIu32"\n", B(31, 0));
     printf("\n");
 
-    v = peri[V3D_BXCF];
+    v = vc4regmap_read(V3D_BXCF);
     printf("[Binner Debug]: 0x%08"PRIx32"\n", v);
     printf("Disable Clipping: %"PRIu32"\n", B(1,1));
     printf("Disable Forwarding in State Cache: %"PRIu32"\n", B(0,0));
     printf("\n");
 
-    v = peri[V3D_SQRSV0];
+    v = vc4regmap_read(V3D_SQRSV0);
     printf("[Reserve QPUs 0-7]: 0x%08"PRIx32"\n", v);
     printf("Reservation settings for QPU  0: 0x%1"PRIx32"\n", B(3,0));
     printf("Reservation settings for QPU  1: 0x%1"PRIx32"\n", B(7,4));
@@ -301,7 +299,7 @@ int main(int argc, char *argv[])
     printf("Reservation settings for QPU  7: 0x%1"PRIx32"\n", B(31,28));
     printf("\n");
 
-    v = peri[V3D_SQRSV1];
+    v = vc4regmap_read(V3D_SQRSV1);
     printf("[Reserve QPUs 8-15]: 0x%08"PRIx32"\n", v);
     printf("Reservation settings for QPU  8: 0x%1"PRIx32"\n", B(3,0));
     printf("Reservation settings for QPU  9: 0x%1"PRIx32"\n", B(7,4));
@@ -313,35 +311,35 @@ int main(int argc, char *argv[])
     printf("Reservation settings for QPU 15: 0x%1"PRIx32"\n", B(31,28));
     printf("\n");
 
-    v = peri[V3D_SQCNTL];
+    v = vc4regmap_read(V3D_SQCNTL);
     printf("[QPU Scheduler Control]: 0x%08"PRIx32"\n", v);
     printf("Coordinate Shader Scheduling Bypass Limit: %"PRIu32"\n", B(3,2));
     printf("Vertex Shader Scheduling Bypass Limit: %"PRIu32"\n", B(1,0));
     printf("\n");
 
     if (print_unknown) {
-        v = peri[V3D_SQCSTAT];
+        v = vc4regmap_read(V3D_SQCSTAT);
         printf("[SQCSTAT]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
-    v = peri[V3D_SRQPC];
+    v = vc4regmap_read(V3D_SRQPC);
     printf("[QPU User Program Request Programm Adress]: 0x%08"PRIx32"\n", v);
     if (print_writeonly)
         printf("Program Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_SRQUA];
+    v = vc4regmap_read(V3D_SRQUA);
     printf("[QPU User Program Request Uniforms Address]: 0x%08"PRIx32"\n", v);
     printf("Uniforms Address: 0x%08"PRIx32"\n", B(31,0));
     printf("\n");
 
-    v = peri[V3D_SRQUL];
+    v = vc4regmap_read(V3D_SRQUL);
     printf("[QPU User Program Request Uniforms Length]: 0x%08"PRIx32"\n", v);
     printf("Uniforms Length: %"PRIu32"\n", B(11,0));
     printf("\n");
 
-    v = peri[V3D_SRQCS];
+    v = vc4regmap_read(V3D_SRQCS);
     printf("[QPU User Program Request Control and Status]: 0x%08"PRIx32"\n", v);
     printf("Count of user programs completed: %"PRIu32"\n", B(23,16));
     printf("Count of user programs requests made: %"PRIu32"\n", B(15,8));
@@ -349,7 +347,7 @@ int main(int argc, char *argv[])
     printf("Queue Length: %"PRIu32"\n", B(5,0));
     printf("\n");
 
-    v = peri[V3D_VPACNTL];
+    v = vc4regmap_read(V3D_VPACNTL);
     printf("[VPM Allocator Control]: 0x%08"PRIx32"\n", v);
     printf("Enable VPM allocation timeout: %"PRIu32"\n", B(13,13));
     printf("Enable VPM allocation limits: %"PRIu32"\n", B(12,12));
@@ -359,18 +357,18 @@ int main(int argc, char *argv[])
     printf("Rendering VPM allocation limit %"PRIu32"\n", B(2,0));
     printf("\n");
 
-    v = peri[V3D_VPMBASE];
+    v = vc4regmap_read(V3D_VPMBASE);
     printf("[VPM base (user) memory reservation]: 0x%08"PRIx32"\n", v);
     printf("VPM memory reserved for user programs: %"PRIu32"\n", B(4,0));
     printf("\n");
 
-    v = peri[V3D_PCTRC];
+    v = vc4regmap_read(V3D_PCTRC);
     printf("[Performance Counter Clear]: 0x%08"PRIx32"\n", v);
     if (print_writeonly)
         printf("Performance Counter Clear Bits: 0x%02"PRIx32"\n", B(15,0));
     printf("\n");
 
-    v = peri[V3D_PCTRE];
+    v = vc4regmap_read(V3D_PCTRE);
     printf("[Performance Counter Enables]: 0x%08"PRIx32"\n", v);
     printf("Performance Counter Enable Bits: 0x%04"PRIx32"\n", B(15,0));
     printf("\n");
@@ -390,114 +388,114 @@ int main(int argc, char *argv[])
         };
         const unsigned pctr = pctr_list[i], pctrs = pctrs_list[i];
 
-        v = peri[pctr];
+        v = vc4regmap_read(pctr);
         printf("[Performance Counts (n=%2d)]: 0x%08"PRIx32"\n", i, v);
         printf("Performance Count (n=%2d): %"PRIu32"\n", i, B(31,0));
         printf("\n");
 
-        v = peri[pctrs];
+        v = vc4regmap_read(pctrs);
         printf("[Performance Counter Mapping (n=%2d)]: 0x%08"PRIx32"\n", i, v);
         printf("Performance Counter Device Id (n=%2d): %"PRIu32"\n", i, B(4,0));
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBCFG];
+        v = vc4regmap_read(V3D_DBCFG);
         printf("[DBCFG]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBSCS];
+        v = vc4regmap_read(V3D_DBSCS);
         printf("[DBSCS]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBSCFG];
+        v = vc4regmap_read(V3D_DBSCFG);
         printf("[DBSCFG]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBSSR];
+        v = vc4regmap_read(V3D_DBSSR);
         printf("[DBSSR]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBSDR0];
+        v = vc4regmap_read(V3D_DBSDR0);
         printf("[DBSDR0]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBSDR1];
+        v = vc4regmap_read(V3D_DBSDR1);
         printf("[DBSDR1]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBSDR2];
+        v = vc4regmap_read(V3D_DBSDR2);
         printf("[DBSDR2]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBSDR3];
+        v = vc4regmap_read(V3D_DBSDR3);
         printf("[DBSDR3]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBQRUN];
+        v = vc4regmap_read(V3D_DBQRUN);
         printf("[DBQRUN]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBQHLT];
+        v = vc4regmap_read(V3D_DBQHLT);
         printf("[DBQHLT]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBQSTP];
+        v = vc4regmap_read(V3D_DBQSTP);
         printf("[DBQSTP]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBQITE];
+        v = vc4regmap_read(V3D_DBQITE);
         printf("[DBQITE]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBQITC];
+        v = vc4regmap_read(V3D_DBQITC);
         printf("[DBQITC]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBQGHC];
+        v = vc4regmap_read(V3D_DBQGHC);
         printf("[DBQGHC]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBQGHG];
+        v = vc4regmap_read(V3D_DBQGHG);
         printf("[DBQGHG]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
     if (print_unknown) {
-        v = peri[V3D_DBQGHH];
+        v = vc4regmap_read(V3D_DBQGHH);
         printf("[DBQGHH]: 0x%08"PRIx32"\n", v);
         printf("\n");
     }
 
-    v = peri[V3D_DBGE];
+    v = vc4regmap_read(V3D_DBGE);
     printf("[PSE Error Signals]: 0x%08"PRIx32"\n", v);
     printf("IPD2_FPDUSED: %"PRIu32"\n", B(20,20));
     printf("IPD2_VALID: %"PRIu32"\n", B(19,19));
@@ -508,7 +506,7 @@ int main(int argc, char *argv[])
     printf("Error A reading VPM: %"PRIu32"\n", B(1,1));
     printf("\n");
 
-    v = peri[V3D_FDBG0];
+    v = vc4regmap_read(V3D_FDBG0);
     printf("[FEP Overrun Error Signals]: 0x%08"PRIx32"\n", v);
     printf("EZREQ_FIFO_ORUN: %"PRIu32"\n", B(17,17));
     printf("EZVAL_FIFO_ORUN: %"PRIu32"\n", B(15,15));
@@ -526,7 +524,7 @@ int main(int argc, char *argv[])
     printf("WCOEFF_FIFO_FULL: %"PRIu32"\n", B(1,1));
     printf("\n");
 
-    v = peri[V3D_FDBGB];
+    v = vc4regmap_read(V3D_FDBGB);
     printf("[FEP Interface Ready and Stall Signals, plus FEP Busy Signals]: 0x%08"PRIx32"\n", v);
     printf("XYFO_FIFO_OP_READY: %"PRIu32"\n", B(28,28));
     printf("QXYF_FIFO_OP_READY: %"PRIu32"\n", B(27,27));
@@ -541,7 +539,7 @@ int main(int argc, char *argv[])
     printf("EDGES_STALL: %"PRIu32"\n", B(0,0));
     printf("\n");
 
-    v = peri[V3D_FDBGR];
+    v = vc4regmap_read(V3D_FDBGR);
     printf("[FEP Internal Ready Signals]: 0x%08"PRIx32"\n", v);
     printf("FIXZ_READY: %"PRIu32"\n", B(30,30));
     printf("RECIPW_READY: %"PRIu32"\n", B(28,28));
@@ -568,7 +566,7 @@ int main(int argc, char *argv[])
     printf("QXYF_FIFO_READY: %"PRIu32"\n", B(0,0));
     printf("\n");
 
-    v = peri[V3D_FDBGS];
+    v = vc4regmap_read(V3D_FDBGS);
     printf("[FEP Internal Stall Input Signals]: 0x%08"PRIx32"\n", v);
     printf("ZO_FIFO_IP_STALL: %"PRIu32"\n", B(28,28));
     printf("RECIPW_IP_STALL: %"PRIu32"\n", B(25,25));
@@ -594,7 +592,7 @@ int main(int argc, char *argv[])
     printf("EZTEST_IP_QSTALL: %"PRIu32"\n", B(0,0));
     printf("\n");
 
-    v = peri[V3D_ERRSTAT];
+    v = vc4regmap_read(V3D_ERRSTAT);
     printf("[Miscellaneous Error Signals (VPM, VDW, VCD, VCM, L2C)]: 0x%08"PRIx32"\n", v);
     printf("L2C AXI Receive Fifo Overrun error: %"PRIu32"\n", B(15,15));
     printf("VCM error (binner): %"PRIu32"\n", B(14,14));

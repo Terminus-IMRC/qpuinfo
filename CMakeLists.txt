@@ -19,18 +19,18 @@ set(CPACK_PACKAGE_VERSION_PATCH 0)
 # auto-generated.
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "Install prefix" FORCE)
-endif()
+endif ()
 set(CPACK_PACKAGING_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 message(STATUS "Install prefix is set to ${CMAKE_INSTALL_PREFIX}")
 include(CPack)
 
 find_package(PkgConfig)
 
-pkg_check_modules(VC4REGMAP libvc4regmap>=0.1.0)
+pkg_check_modules(VC4REGMAP libvc4regmap>=1.0.0)
 if (NOT VC4REGMAP_FOUND)
     message(STATUS "Adding /opt/vc/lib/pkgconfig to PKG_CONFIG_PATH")
     set(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:/opt/vc/lib/pkgconfig")
-    pkg_check_modules(VC4REGMAP libvc4regmap>=0.1.0)
+    pkg_check_modules(VC4REGMAP libvc4regmap>=1.0.0)
     if (NOT VC4REGMAP_FOUND)
         message (FATAL_ERROR "libvc4regmap not found even in /opt/vc/lib. "
                              "Building on non-RPi host? "
