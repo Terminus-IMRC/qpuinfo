@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    if (vc4regmap_init() == NULL) {
+    if (vc4regmap_init()) {
         fprintf(stderr, "error: vc4regmap_init\n");
         if (flag_enable_qpu || flag_disable_qpu)
             (void) mailbox_close(fd);
@@ -611,8 +611,7 @@ int main(int argc, char *argv[])
     printf("VPM Allocator error - request too big: %"PRIu32"\n", B(1,1));
     printf("VPM Allocator error - allocating base while busy: %"PRIu32"\n", B(0,0));
 
-    err = vc4regmap_finalize();
-    if (err) {
+    if (vc4regmap_finalize()) {
         fprintf(stderr, "error: vc4regmap_finalize\n");
         /* Continue finalization... */
     }
